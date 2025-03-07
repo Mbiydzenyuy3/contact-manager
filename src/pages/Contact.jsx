@@ -12,9 +12,8 @@ import {
   setSearchTerm,
   setSelectedGroup,
 } from "../store/contactsSlice";
-import "../styles/App.css";
 
-function App() {
+function Contact() {
   const dispatch = useDispatch();
   const { contacts, searchTerm, selectedGroup } = useSelector(
     (state) => state.contacts
@@ -106,4 +105,4 @@ function App() {
   );
 }
 
-export default App;
+export default Contact;
