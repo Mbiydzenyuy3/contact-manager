@@ -50,7 +50,7 @@ export default function ContactList({
                   <div className={style.contactIcon}>
                     {groupIcons[contact.group]}
                   </div>
-                  <div>
+                  <div className={style.personInfo}>
                     <h3 className={style.contactName}>{contact.name}</h3>
                     <p className={style.contactEmail}>{contact.email}</p>
                     <p className={style.contactPhone}>{contact.phone}</p>

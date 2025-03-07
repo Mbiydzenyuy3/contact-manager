@@ -4,7 +4,7 @@ import { MdAdd, MdSearch } from "react-icons/md";
 import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
 import { useDispatch, useSelector } from "react-redux";
-import "../components/Contact.module.css";
+import style from "../components/Contact.module.css";
 import {
   addContact,
   updateContact,
@@ -41,36 +41,36 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <div className="content-wrapper">
-        <div className="header">
-          <h1 className="header-title">Contact Manager</h1>
+    <div className={style.appContainer}>
+      <div className={style.contentWrapper}>
+        <div className={style.header}>
+          <h1 className={style.headerTitle}>Contact Manager</h1>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowForm(true)}
-            className="add-button"
+            className={style.addButton}
           >
             <MdAdd size={20} />
             Add Contact
           </motion.button>
         </div>
 
-        <div className="search-filter-container">
-          <div className="search-wrapper">
-            <MdSearch className="search-icon" size={20} />
+        <div className={style.searchFilterContainer}>
+          <div className={style.searchWrapper}>
+            <MdSearch className={style.searchIcon} size={20} />
             <input
               type="text"
               placeholder="Search contacts..."
               value={searchTerm}
               onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-              className="search-input"
+              className={style.searchInput}
             />
           </div>
           <select
             value={selectedGroup}
             onChange={(e) => dispatch(setSelectedGroup(e.target.value))}
-            className="group-select"
+            className={style.groupSelect}
           >
             <option value="all">All Groups</option>
             <option value="professional">Professional</option>

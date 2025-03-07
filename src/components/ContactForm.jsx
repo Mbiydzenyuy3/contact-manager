@@ -24,7 +24,7 @@ const ContactForm = ({ onSubmit, onClose, initialData = null }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={style.modallOverlay}
+      className={style.modalOverlay}
     >
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
