@@ -1,13 +1,20 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import "./styles/App.css";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
-import './styles/App.css'
-
-function App() {
- 
+export default function App() {
   return (
-    <>
-      
-    </>
-  )
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<div>404 Not Found</div>} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  );
 }
-
-export default App
