@@ -22,10 +22,10 @@ export default function Home() {
               </h1>
 
               <div className={style.buttonGroup}>
-                <a href="/contact" className={style.primaryButton}>
+                <Link to="/contact" className={style.primaryButton}>
                   Get Started Free
                   <SparklesIcon className={style.iconSpacing} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
