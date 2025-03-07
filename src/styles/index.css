@@ -59,3 +59,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #ccc;
 }
+
+footer.footer {
+  margin-top: 124px;
+}
+
+p.text.footer-text {
+  color: #fff;
+  text-align: center;
+}
