@@ -88,7 +88,7 @@ const ContactForm = ({ onSubmit, onClose, initialData = null }) => {
                 }
                 className={style.formSelect}
               >
-                <option value="personal">Professional</option>
+                <option value="professional">Professional</option>
                 <option value="personal">Personal</option>
                 <option value="work">Work</option>
                 <option value="family">Family</option>

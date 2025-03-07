@@ -18,7 +18,7 @@ body {
   border-radius: 0.5rem;
   transition: colors 0.3s;
   margin-right: 10px;
-  border: 0;
+  border: 1px solid #c084ff;
 }
 
 .action-button:hover {
