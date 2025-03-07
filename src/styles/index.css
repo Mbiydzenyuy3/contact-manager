@@ -12,6 +12,26 @@ body {
   background-color: #fafafa;
 }
 
+.action-button {
+  padding: 0.5rem;
+  color: #9ca3af;
+  border-radius: 0.5rem;
+  transition: colors 0.3s;
+}
+
+.action-button:hover {
+  background-color: #eff6ff;
+}
+
+.edit-button:hover {
+  color: #3b82f6;
+}
+
+.delete-button:hover {
+  color: #ef4444;
+  background-color: #fef2f2;
+}
+
 #root {
   width: 100%;
   min-height: 100vh;
