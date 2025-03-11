@@ -5,6 +5,7 @@ import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../components/Contact.module.css";
+
 import {
   addContact,
   updateContact,
@@ -12,8 +13,11 @@ import {
   setSearchTerm,
   setSelectedGroup,
 } from "../store/contactsSlice";
+// import { useNavigate } from "react-router";
 
 function Contact() {
+  // const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const { contacts, searchTerm, selectedGroup } = useSelector(
     (state) => state.contacts
@@ -101,6 +105,9 @@ function Contact() {
           )}
         </AnimatePresence>
       </div>
+      <a href="/">
+        <button className="cta">Back to home</button>
+      </a>
     </div>
   );
 }

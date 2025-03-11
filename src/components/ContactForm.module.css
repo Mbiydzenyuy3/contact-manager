@@ -39,7 +39,7 @@
   padding: 1.5rem;
 }
 
-.formTitle{
+.formTitle {
   font-size: 1.5rem;
   font-weight: 700;
   color: #242424;
@@ -89,4 +89,9 @@
 
 .submitButton:hover {
   background-color: #2563eb;
+}
+
+.error {
+  color: red;
+  padding-top: 40px;
 }

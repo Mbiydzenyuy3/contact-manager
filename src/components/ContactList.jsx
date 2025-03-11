@@ -4,6 +4,7 @@ import {
   MdEdit,
   MdDelete,
   MdPerson,
+  MdComputer,
   MdWork,
   MdPeople,
   MdGroup,
@@ -11,6 +12,7 @@ import {
 import style from "../components/ContactList.module.css";
 
 const groupIcons = {
+  professional: <MdComputer className={style.iconGreen} />,
   personal: <MdPerson className={style.iconBLue} />,
   work: <MdWork className={style.iconEmerald} />,
   family: <MdPeople className={style.iconRose} />,
@@ -82,9 +84,6 @@ export default function ContactList({
       {filteredContacts.length === 0 && (
         <div className={style.noContacts}>
           <p className={style.noContactsTitle}>No contacts found</p>
-          {/* <p className={style.noContactsSubtitle}>
-            Try adjusting your search or filters
-          </p> */}
         </div>
       )}
     </div>
