@@ -143,6 +143,15 @@
   background: linear-gradient(90deg, #2563eb 0%, #7e22ce 100%);
 }
 
+.iconSpacing {
+  width: 48px;
+}
+
+span.start-free {
+  width: 270px;
+  font-size: 32px;
+}
+
 .footer {
   background: #111827;
   padding: 3rem 0;

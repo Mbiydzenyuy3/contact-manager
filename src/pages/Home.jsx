@@ -23,7 +23,7 @@ export default function Home() {
 
               <div className={style.buttonGroup}>
                 <Link to="/contact" className={style.primaryButton}>
-                  Get Started Free
+                  <span className="start-free">Get Started Free</span>
                   <SparklesIcon className={style.iconSpacing} />
                 </Link>
               </div>
