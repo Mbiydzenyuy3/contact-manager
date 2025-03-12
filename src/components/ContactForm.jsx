@@ -4,7 +4,6 @@ import { contactSchema } from "../Schemas/ValidationSchema";
 import { MdClose } from "react-icons/md";
 import style from "../components/ContactForm.module.css";
 
-
 export default function ContactForm({ onSubmit, onClose, initialData = null }) {
   const [formData, setFormData] = React.useState(
     initialData || {
