@@ -108,7 +108,7 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
                 value={formData.phone}
                 onChange={handleChange}
                 className={style.formInput}
-                placeholder="Enter phone number"
+                placeholder="67838690"
                 pattern="[0-9]{10}"
               />
               {errors.phone && (
