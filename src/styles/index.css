@@ -21,6 +21,12 @@ body {
   border: 1px solid #c084ff;
 }
 
+h1 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .action-button:hover {
   background-color: #eff6ff;
 }
@@ -54,6 +60,18 @@ body {
 a {
   color: #fff;
   text-decoration: none;
+}
+
+.logo {
+  color: #7b10e7;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  color: #9d4feb;
+  background-color: #7b10e7;
 }
 
 #root {

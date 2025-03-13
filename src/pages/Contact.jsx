@@ -5,6 +5,7 @@ import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../components/Contact.module.css";
+import { Link } from "react-router";
 
 import {
   addContact,
@@ -13,11 +14,8 @@ import {
   setSearchTerm,
   setSelectedGroup,
 } from "../store/contactsSlice";
-// import { useNavigate } from "react-router";
 
 function Contact() {
-  // const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const { contacts, searchTerm, selectedGroup } = useSelector(
     (state) => state.contacts
@@ -47,7 +45,10 @@ function Contact() {
     <div className={style.appContainer}>
       <div className={style.contentWrapper}>
         <div className={style.header}>
-          <h1 className={style.headerTitle}>Contact Manager</h1>
+          <h1 className={style.headerTitle}>
+            <span className="logo">MEL</span>
+            <div className="dot"></div>Contacts
+          </h1>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -105,9 +106,9 @@ function Contact() {
           )}
         </AnimatePresence>
       </div>
-      <a href="/">
+      <Link to="/">
         <button className="cta">Back to home</button>
-      </a>
+      </Link>
     </div>
   );
 }
