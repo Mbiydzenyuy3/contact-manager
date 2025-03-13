@@ -45,10 +45,10 @@ function Contact() {
     <div className={style.appContainer}>
       <div className={style.contentWrapper}>
         <div className={style.header}>
-          <h1 className={style.headerTitle}>
+          <h2 className={style.headerTitle}>
             <span className="logo">MEL</span>
             <div className="dot"></div>Contacts
-          </h1>
+          </h2>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
