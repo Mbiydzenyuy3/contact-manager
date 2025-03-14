@@ -109,6 +109,13 @@ function Contact() {
       <Link to="/">
         <button className="cta">Back to home</button>
       </Link>
+      <footer className="footer-two">
+        <div className="footer-item-two">
+          <p className="text footer-text-two">
+            © 2024 MEL Contact Manager. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

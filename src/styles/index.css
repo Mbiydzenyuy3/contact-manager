@@ -106,3 +106,9 @@ p.text.footer-text {
   color: #fff;
   text-align: center;
 }
+
+.footer-text-two {
+  color: #000;
+  text-align: center;
+  margin-top: 160px;
+}
