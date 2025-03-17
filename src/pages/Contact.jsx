@@ -45,10 +45,6 @@ function Contact() {
     <div className={style.appContainer}>
       <div className={style.contentWrapper}>
         <div className={style.header}>
-          <h2 className={style.headerTitle}>
-            <span className="logo">MEL</span>
-            <div className="dot"></div>Contacts
-          </h2>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -112,7 +108,7 @@ function Contact() {
       <footer className="footer-two">
         <div className="footer-item-two">
           <p className="text footer-text-two">
-            © 2024 MEL Contact Manager. All rights reserved.
+            © 2024 MEL Contact. All rights reserved.
           </p>
         </div>
       </footer>

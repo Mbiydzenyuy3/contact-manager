@@ -13,14 +13,8 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: right;
   margin-bottom: 2rem;
-}
-
-.headerTitle {
-  font-size: 1.875rem;
-  font-weight: 700;
-  color: #242424;
 }
 
 .addButton {

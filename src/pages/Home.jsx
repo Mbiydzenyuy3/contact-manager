@@ -6,6 +6,11 @@ export default function Home() {
   return (
     <>
       <div className={style.landingPage}>
+        <h2 className={style.headerTitle}>
+          <span className="logo">MEL</span>
+          <div className="dot"></div>Contacts
+        </h2>
+
         <header className={style.heroSection}>
           <div className={style.heroContainer}>
             <div className={style.animatefadeIn}>
@@ -14,10 +19,12 @@ export default function Home() {
                   Organize Your Connections
                 </span>
                 <span className={style.subHeading}>
-                  Add your contacts and let us do the rest for you. Create
-                  lasting <br /> connections today, get started by clicking on
+                  Welcome to MEL Contacts, where we keep your connections <br />
+                  saved and organized. Add your contacts and let us do the rest
                   <br />
-                  the button get started for free
+                  for you. Create lasting connections today, get started by
+                  <br />
+                  clicking on the button get started for free
                 </span>
               </h1>
 
@@ -33,7 +40,7 @@ export default function Home() {
         <footer className="footer">
           <div className="footer-item">
             <p className="text footer-text">
-              © 2024 MEL Contact Manager. All rights reserved.
+              © 2024 MEL Contacts. All rights reserved.
             </p>
           </div>
         </footer>

@@ -8,6 +8,18 @@
   justify-content: space-between;
 }
 
+.headerTitle {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  margin-inline-start: 2rem;
+  padding-block: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffff;
+}
+
 .heroSection {
   position: relative;
   padding-top: 5rem;
@@ -36,6 +48,7 @@
   background-clip: text;
   color: transparent;
   display: block;
+  font-size: 2rem;
 }
 
 .subHeading {
@@ -188,6 +201,10 @@ span.start-free {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+
+  .gradientText {
+    font-size: 2.5rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -197,6 +214,10 @@ span.start-free {
 
   .featureGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gradientText {
+    font-size: 3rem;
   }
 }
 
