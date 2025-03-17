@@ -54,6 +54,9 @@ function Contact() {
             <MdAdd size={20} />
             Add Contact
           </motion.button>
+          <Link to="/">
+            <button className="cta">Back to home</button>
+          </Link>
         </div>
 
         <div className={style.searchFilterContainer}>
@@ -102,9 +105,7 @@ function Contact() {
           )}
         </AnimatePresence>
       </div>
-      <Link to="/">
-        <button className="cta">Back to home</button>
-      </Link>
+
       <footer className="footer-two">
         <div className="footer-item-two">
           <p className="text footer-text-two">
