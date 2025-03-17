@@ -18,19 +18,16 @@ export default function Home() {
                 <span className={style.gradientText}>
                   Organize Your Connections
                 </span>
-                <span className={style.subHeading}>
-                  Welcome to MEL Contacts, where we keep your connections <br />
-                  saved and organized. Add your contacts and let us do the rest
-                  <br />
-                  for you. Create lasting connections today, get started by
-                  <br />
-                  clicking on the button get started for free
-                </span>
+                <p className={style.subHeading}>
+                  Welcome to MEL Contacts, where we keep your connections saved
+                  and organized. <br /> Create lasting connections today, get
+                  started by clicking on the button get started
+                </p>
               </h1>
 
               <div className={style.buttonGroup}>
                 <Link to="/contact" className={style.primaryButton}>
-                  <span className="start-free">Get Started Free</span>
+                  <span className="start-free">Get Started</span>
                   <SparklesIcon className={style.iconSpacing} />
                 </Link>
               </div>

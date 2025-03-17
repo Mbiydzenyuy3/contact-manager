@@ -2,7 +2,7 @@
 .landingPage {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #111827 0%, #1e40af 50%, #6b21a8 100%);
+  background: linear-gradient(135deg, #1e40af 50%, #6b21a8 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,6 +42,9 @@
   line-height: 1;
   color: white;
   letter-spacing: -0.025em;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .gradientText {
@@ -57,8 +60,9 @@
   display: block;
   margin-top: 0.5rem;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 200;
   color: #e5e7eb;
+  line-height: 24px;
   letter-spacing: 1px;
   word-spacing: normal;
 }
@@ -68,6 +72,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-top: -32px;
 }
 
 .primaryButton {
@@ -198,10 +203,15 @@ span.start-free {
 }
 
 /* Responsive Design */
-@media (min-width: 640px) {
+@media (min-width: 480px) {
   .heroSection {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    height: 40rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .gradientText {
@@ -226,5 +236,15 @@ span.start-free {
 @media (min-width: 1024px) {
   .featureGrid {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .gradientText {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .gradientText {
+    font-size: 4.5rem;
   }
 }
