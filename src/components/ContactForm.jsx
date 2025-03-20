@@ -125,7 +125,7 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
               >
                 <option value="professional">Professional</option>
                 <option value="personal">Personal</option>
-                <option value="work">Work</option>
+                <option value="work">Business</option>
                 <option value="family">Family</option>
                 <option value="friends">Friends</option>
               </select>

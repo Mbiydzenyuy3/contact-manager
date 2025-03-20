@@ -78,7 +78,7 @@ function Contact() {
             <option value="all">All Groups</option>
             <option value="professional">Professional</option>
             <option value="personal">Personal</option>
-            <option value="work">Work</option>
+            <option value="work">Business</option>
             <option value="family">Family</option>
             <option value="friends">Friends</option>
           </select>
