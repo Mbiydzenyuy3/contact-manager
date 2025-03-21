@@ -12,6 +12,11 @@ body {
   background-color: #fafafa;
 }
 
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
 .action-button {
   padding: 0.5rem;
   color: #9ca3af;
