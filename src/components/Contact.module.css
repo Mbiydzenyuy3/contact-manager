@@ -1,5 +1,6 @@
 /* Main container styles */
 .appContainer {
+  width: 100%;
   min-height: 100vh;
   background-color: rgba(249, 250, 251, 0.5);
   display: flex;
