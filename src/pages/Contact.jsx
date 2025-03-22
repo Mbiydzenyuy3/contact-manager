@@ -23,7 +23,19 @@ function Contact() {
   const [showForm, setShowForm] = useState(false);
   const [editingContact, setEditingContact] = useState(null);
 
+  const isDuplicateContact = (newContact) => {
+    return contacts.some(
+      (contact) =>
+        contact.phone === newContact.phone || contact.email === newContact.email
+    );
+  };
+
   const handleAddContact = (newContact) => {
+    // Check for duplicates before adding
+    if (isDuplicateContact(newContact)) {
+      alert("Contact with the same phone number or email already exists!");
+      return;
+    }
     dispatch(addContact(newContact));
   };
 
