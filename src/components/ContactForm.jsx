@@ -1,168 +1,159 @@
-import { motion } from "framer-motion";
-import * as yup from "yup";
-import { useState } from "react";
-import { MdClose } from "react-icons/md";
-import style from "../components/ContactForm.module.css";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MdAdd, MdSearch } from "react-icons/md";
+import ContactList from "../components/ContactList";
+import ContactForm from "../components/ContactForm";
+import { useDispatch, useSelector } from "react-redux";
+import style from "../components/Contact.module.css";
+import { Link } from "react-router-dom";
 
-const contactSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  phone: yup
-    .string()
-    .matches(/^[0-9]{8,15}$/, "Phone number must be between 8 and 15 digits")
-    .required("Phone number is required"),
-  group: yup.string().required("Group is required"),
-});
+import {
+  addContact,
+  updateContact,
+  deleteContact,
+  setSearchTerm,
+  setSelectedGroup,
+  fetchContactsStart,
+  fetchContactsSuccess,
+  fetchContactsFailure,
+} from "../store/contactsSlice";
 
-export default function ContactForm({
-  onSubmit,
-  onClose,
-  initialData = null,
-  duplicateError,
-  clearDuplicateError,
-}) {
-  const [formData, setFormData] = useState(
-    initialData || {
-      name: "",
-      email: "",
-      phone: "",
-      group: "personal",
-    }
+import { fetchTestContacts } from "../services/contactService";
+
+function Contact() {
+  const dispatch = useDispatch();
+  const { contacts, searchTerm, selectedGroup, loading, error } = useSelector(
+    (state) => state.contacts
   );
+  const [showForm, setShowForm] = useState(false);
+  const [editingContact, setEditingContact] = useState(null);
+  const [duplicateError, setDuplicateError] = useState(null);
 
-  const [errors, setErrors] = useState({});
+  const isDuplicateContact = (newContact) => {
+    return contacts.some(
+      (contact) =>
+        contact.phone === newContact.phone || contact.email === newContact.email
+    );
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleAddContact = (newContact) => {
+    if (isDuplicateContact(newContact)) {
+      setDuplicateError("Contact with this email or phone already exists!");
+      return false;
+    }
+    dispatch(addContact(newContact));
+    return true;
+  };
 
-    try {
-      await contactSchema.validate(formData, { abortEarly: false });
+  const handleEditContact = (contact) => {
+    setEditingContact(contact);
+    setShowForm(true);
+  };
 
-      setErrors({});
+  const handleUpdateContact = (updatedContact) => {
+    dispatch(updateContact({ ...updatedContact, id: editingContact.id }));
+    setEditingContact(null);
+  };
 
-      // Handle submission result
-      const submissionResult = await onSubmit(formData);
-      if (submissionResult !== false) {
-        onClose();
+  const handleDeleteContact = (id) => {
+    dispatch(deleteContact(id));
+  };
+
+  // Automatically fetch contacts when the component mounts
+  useEffect(() => {
+    const loadTestContacts = async () => {
+      try {
+        dispatch(fetchContactsStart());
+        const testContacts = await fetchTestContacts(10); // Fetching 10 contacts
+        dispatch(fetchContactsSuccess(testContacts));
+      } catch (error) {
+        dispatch(fetchContactsFailure(error.message));
       }
-    } catch (validationErrors) {
-      const formattedErrors = {};
-      validationErrors.inner.forEach((error) => {
-        formattedErrors[error.path] = error.message;
-      });
-      setErrors(formattedErrors);
-    }
-  };
+    };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-    clearDuplicateError?.();
-  };
+    loadTestContacts();
+  }, [dispatch]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={style.modalOverlay}
-    >
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        className={style.modalContent}
-      >
-        <div className={style.formContainer}>
-          <button onClick={onClose} className={style.closeButton}>
-            <MdClose size={18} />
-          </button>
-          <h2 className={style.formTitle}>
-            {initialData ? "Edit Contact" : "Add Contact"}
-          </h2>
-          <form onSubmit={handleSubmit} className={style.formSpace} noValidate>
-            <div className={style.formGroup}>
-              <label className={style.formLabel}>Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className={style.formInput}
-                placeholder="Enter name"
-              />
-              {errors.name && (
-                <span className={style.error}>{errors.name}</span>
-              )}
-            </div>
-            <div className={style.formGroup}>
-              <label className={style.formLabel}>Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={style.formInput}
-                placeholder="Enter email"
-              />
-              {errors.email && (
-                <span className={style.error}>{errors.email}</span>
-              )}
-            </div>
-            <div className={style.formGroup}>
-              <label className={style.formLabel}>Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className={style.formInput}
-                placeholder="67838690"
-                pattern="[0-9]{10}"
-              />
-              {errors.phone && (
-                <span className={style.error}>{errors.phone}</span>
-              )}
-            </div>
-            <div className={style.formGroup}>
-              <label className={style.formLabel}>Group</label>
-              <select
-                name="group"
-                value={formData.group}
-                onChange={handleChange}
-                className={style.formSelect}
-              >
-                <option value="professional">Professional</option>
-                <option value="personal">Personal</option>
-                <option value="work">Business</option>
-                <option value="family">Family</option>
-                <option value="friends">Friends</option>
-              </select>
-              {errors.group && (
-                <span className={style.error}>{errors.group}</span>
-              )}
-            </div>
-            {duplicateError && (
-              <div className={style.duplicateError}>{duplicateError}</div>
-            )}
-            <motion.button
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              type="submit"
-              className={style.submitButton}
-            >
-              {initialData ? "Update Contact" : "Add Contact"}
-            </motion.button>
-          </form>
+    <div className={style.appContainer}>
+      <div className={style.contentWrapper}>
+        <div className={style.header}>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setShowForm(true)}
+            className={style.addButton}
+          >
+            <MdAdd size={20} />
+            Add Contact
+          </motion.button>
+          <Link to="/">
+            <button className="cta">Back to home</button>
+          </Link>
         </div>
-      </motion.div>
-    </motion.div>
+
+        <div className={style.searchFilterContainer}>
+          <div className={style.searchWrapper}>
+            <MdSearch className={style.searchIcon} size={20} />
+            <input
+              type="text"
+              placeholder="Search contacts..."
+              value={searchTerm}
+              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+              className={style.searchInput}
+            />
+          </div>
+          <select
+            value={selectedGroup}
+            onChange={(e) => dispatch(setSelectedGroup(e.target.value))}
+            className={style.groupSelect}
+          >
+            <option value="all">All Groups</option>
+            <option value="professional">Professional</option>
+            <option value="personal">Personal</option>
+            <option value="work">Business</option>
+            <option value="family">Family</option>
+            <option value="friends">Friends</option>
+          </select>
+        </div>
+
+        {error && <div className={style.errorMessage}>{error}</div>}
+        {loading && <div className={style.loadingSpinner}></div>}
+
+        <ContactList
+          contacts={contacts}
+          onEdit={handleEditContact}
+          onDelete={handleDeleteContact}
+          searchTerm={searchTerm}
+          selectedGroup={selectedGroup}
+        />
+
+        <AnimatePresence>
+          {showForm && (
+            <ContactForm
+              onSubmit={editingContact ? handleUpdateContact : handleAddContact}
+              onClose={() => {
+                setShowForm(false);
+                setEditingContact(null);
+                setDuplicateError(null);
+              }}
+              initialData={editingContact}
+              duplicateError={duplicateError}
+              clearDuplicateError={() => setDuplicateError(null)}
+            />
+          )}
+        </AnimatePresence>
+      </div>
+
+      <footer className="footer-two">
+        <div className="footer-item-two">
+          <p className="text footer-text-two">
+            &copy; 2025 MEL Contact. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 }
+
+export default Contact;
