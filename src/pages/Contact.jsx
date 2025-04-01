@@ -5,7 +5,7 @@ import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
 import { useDispatch, useSelector } from "react-redux";
 import style from "../components/Contact.module.css";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import {
   addContact,
@@ -17,11 +17,12 @@ import {
 
 function Contact() {
   const dispatch = useDispatch();
-  const { contacts, searchTerm, selectedGroup } = useSelector(
+  const { contacts, searchTerm, selectedGroup, loading, error } = useSelector(
     (state) => state.contacts
   );
   const [showForm, setShowForm] = useState(false);
   const [editingContact, setEditingContact] = useState(null);
+  const [duplicateError, setDuplicateError] = useState(null);
 
   const isDuplicateContact = (newContact) => {
     return contacts.some(
@@ -31,12 +32,12 @@ function Contact() {
   };
 
   const handleAddContact = (newContact) => {
-    // Check for duplicates before adding
     if (isDuplicateContact(newContact)) {
-      alert("Contact with the same phone number or email already exists!");
-      return;
+      setDuplicateError("Contact with this email or phone already exists!");
+      return false;
     }
     dispatch(addContact(newContact));
+    return true;
   };
 
   const handleEditContact = (contact) => {
@@ -66,6 +67,7 @@ function Contact() {
             <MdAdd size={20} />
             Add Contact
           </motion.button>
+
           <Link to="/">
             <button className="cta">Back to home</button>
           </Link>
@@ -96,6 +98,9 @@ function Contact() {
           </select>
         </div>
 
+        {error && <div className={style.errorMessage}>{error}</div>}
+        {loading && <div className={style.loadingSpinner}></div>}
+
         <ContactList
           contacts={contacts}
           onEdit={handleEditContact}
@@ -111,8 +116,11 @@ function Contact() {
               onClose={() => {
                 setShowForm(false);
                 setEditingContact(null);
+                setDuplicateError(null);
               }}
               initialData={editingContact}
+              duplicateError={duplicateError}
+              clearDuplicateError={() => setDuplicateError(null)}
             />
           )}
         </AnimatePresence>
@@ -121,7 +129,7 @@ function Contact() {
       <footer className="footer-two">
         <div className="footer-item-two">
           <p className="text footer-text-two">
-            © 2024 MEL Contact. All rights reserved.
+            &copy; 2025 MEL Contact. All rights reserved.
           </p>
         </div>
       </footer>

@@ -1,29 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const loadContacts = () => {
   try {
-    const contacts = localStorage.getItem('contacts');
+    const contacts = localStorage.getItem("contacts");
     return contacts ? JSON.parse(contacts) : [];
   } catch (error) {
-    console.error('Error loading contacts:', error);
+    console.error("Error loading contacts:", error);
     return [];
   }
 };
 
 const saveContacts = (contacts) => {
   try {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    localStorage.setItem("contacts", JSON.stringify(contacts));
   } catch (error) {
-    console.error('Error saving contacts:', error);
+    console.error("Error saving contacts:", error);
   }
 };
 
 const contactsSlice = createSlice({
-  name: 'contacts',
+  name: "contacts",
   initialState: {
     contacts: loadContacts(),
-    searchTerm: '',
-    selectedGroup: 'all'
+    searchTerm: "",
+    selectedGroup: "all",
+    loading: false,
+    error: null,
   },
   reducers: {
     addContact: (state, action) => {
@@ -32,13 +34,15 @@ const contactsSlice = createSlice({
       saveContacts(state.contacts);
     },
     updateContact: (state, action) => {
-      state.contacts = state.contacts.map(contact =>
+      state.contacts = state.contacts.map((contact) =>
         contact.id === action.payload.id ? action.payload : contact
       );
       saveContacts(state.contacts);
     },
     deleteContact: (state, action) => {
-      state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
+      state.contacts = state.contacts.filter(
+        (contact) => contact.id !== action.payload
+      );
       saveContacts(state.contacts);
     },
     setSearchTerm: (state, action) => {
@@ -46,8 +50,23 @@ const contactsSlice = createSlice({
     },
     setSelectedGroup: (state, action) => {
       state.selectedGroup = action.payload;
-    }
-  }
+    },
+
+    fetchContactsStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+
+    fetchContactsSuccess(state, action) {
+      state.loading = false;
+      state.contacts = [...state.contacts, ...action.payload];
+    },
+
+    fetchContactsFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 export const {
@@ -55,7 +74,10 @@ export const {
   updateContact,
   deleteContact,
   setSearchTerm,
-  setSelectedGroup
+  setSelectedGroup,
+  fetchContactsStart,
+  fetchContactsSuccess,
+  fetchContactsFailure,
 } = contactsSlice.actions;
 
 export default contactsSlice.reducer;

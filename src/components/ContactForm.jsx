@@ -1,11 +1,27 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { contactSchema } from "../Schemas/ValidationSchema";
+import * as yup from "yup";
+import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import style from "../components/ContactForm.module.css";
 
-export default function ContactForm({ onSubmit, onClose, initialData = null }) {
-  const [formData, setFormData] = React.useState(
+const contactSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  phone: yup
+    .string()
+    .matches(/^[0-9]{8,15}$/, "Phone number must be between 8 and 15 digits")
+    .required("Phone number is required"),
+  group: yup.string().required("Group is required"),
+});
+
+export default function ContactForm({
+  onSubmit,
+  onClose,
+  initialData = null,
+  duplicateError,
+  clearDuplicateError,
+}) {
+  const [formData, setFormData] = useState(
     initialData || {
       name: "",
       email: "",
@@ -14,22 +30,22 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
     }
   );
 
-  // Add state for validation errors
-  const [errors, setErrors] = React.useState({});
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Validate form data
       await contactSchema.validate(formData, { abortEarly: false });
 
-      // Clear errors if validation succeeds
       setErrors({});
-      onSubmit(formData);
-      onClose();
+
+      // Handle submission result
+      const submissionResult = await onSubmit(formData);
+      if (submissionResult !== false) {
+        onClose();
+      }
     } catch (validationErrors) {
-      // Handle validation errors
       const formattedErrors = {};
       validationErrors.inner.forEach((error) => {
         formattedErrors[error.path] = error.message;
@@ -45,10 +61,10 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
       [name]: value,
     }));
 
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
+    clearDuplicateError?.();
   };
 
   return (
@@ -101,7 +117,7 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
               )}
             </div>
             <div className={style.formGroup}>
-              <label className={style.fromLabel}>Phone</label>
+              <label className={style.formLabel}>Phone</label>
               <input
                 type="tel"
                 name="phone"
@@ -116,7 +132,7 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
               )}
             </div>
             <div className={style.formGroup}>
-              <label className={style.fromLabel}>Group</label>
+              <label className={style.formLabel}>Group</label>
               <select
                 name="group"
                 value={formData.group}
@@ -133,6 +149,9 @@ export default function ContactForm({ onSubmit, onClose, initialData = null }) {
                 <span className={style.error}>{errors.group}</span>
               )}
             </div>
+            {duplicateError && (
+              <div className={style.duplicateError}>{duplicateError}</div>
+            )}
             <motion.button
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}

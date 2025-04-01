@@ -13,7 +13,7 @@ import style from "../components/ContactList.module.css";
 
 const groupIcons = {
   professional: <MdComputer className={style.iconGreen} />,
-  personal: <MdPerson className={style.iconBLue} />,
+  personal: <MdPerson className={style.iconBlue} />,
   work: <MdWork className={style.iconEmerald} />,
   family: <MdPeople className={style.iconRose} />,
   friends: <MdGroup className={style.iconViolet} />,
@@ -26,21 +26,24 @@ export default function ContactList({
   searchTerm,
   selectedGroup,
 }) {
-  const filteredContacts = contacts.filter((contact) => {
-    const matchesSearch =
-      contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesGroup =
-      selectedGroup === "all" || contact.group === selectedGroup;
-    return matchesSearch && matchesGroup;
-  });
+  const filteredContacts = contacts
+    .filter((contact) => {
+      const matchesSearch =
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        contact.email.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesGroup =
+        selectedGroup === "all" || contact.group === selectedGroup;
+      return matchesSearch && matchesGroup;
+    })
+    // Add sorting here
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className={style.contactGrid}>
       <AnimatePresence>
         {filteredContacts.map((contact) => (
           <motion.div
-            key={contact.id}
+            key={contact.id || contact.email}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -49,6 +52,13 @@ export default function ContactList({
             <div className={style.contactContent}>
               <div className={style.contactHeader}>
                 <div className={style.contactInfo}>
+                  {contact.picture && (
+                    <img
+                      src={contact.picture}
+                      alt={`${contact.name}'s profile`}
+                      className={style.contactImage}
+                    />
+                  )}
                   <div className={style.contactIcon}>
                     {groupIcons[contact.group]}
                   </div>
