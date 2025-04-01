@@ -5,8 +5,7 @@ const loadContacts = () => {
     const contacts = localStorage.getItem("contacts");
     return contacts ? JSON.parse(contacts) : [];
   } catch (error) {
-    console.error("Error loading contacts:", error);
-    return [];
+    throw new error("No contacts found in storage");
   }
 };
 
@@ -14,7 +13,9 @@ const saveContacts = (contacts) => {
   try {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   } catch (error) {
-    console.error("Error saving contacts:", error);
+    throw new error(
+      "Check your form to see if contact is inputed correctly"
+    )
   }
 };
 

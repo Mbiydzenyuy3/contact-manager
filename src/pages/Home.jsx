@@ -6,11 +6,6 @@ export default function Home() {
   return (
     <>
       <div className={style.landingPage}>
-        {/* <h2 className={style.headerTitle}>
-          <span className="logo">MEL</span>
-          <div className="dot"></div>Contacts
-        </h2> */}
-
         <header className={style.heroSection}>
           <div className={style.heroContainer}>
             <div className={style.animatefadeIn}>
