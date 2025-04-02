@@ -59,43 +59,6 @@ function Contact() {
     dispatch(deleteContact(id));
   };
 
-  // const myContacts = [
-  //   {
-  //     name: "Emelia Jackson",
-  //     email: "emeliajackson@gmail.com",
-  //     phone: "347809076378",
-  //     group: "personal",
-  //   },
-
-  //   {
-  //     name: "Penn Jude",
-  //     email: "pennjude@gmail.com",
-  //     phone: "3237678983412",
-  //     group: "family",
-  //   },
-
-  //   {
-  //     name: "Eileen Leila",
-  //     email: "eileenleila@gmail.com",
-  //     phone: "654007823",
-  //     group: "Business",
-  //   },
-
-  //   {
-  //     name: "Arlette Ciara",
-  //     email: "ciaragospel@gmail.com",
-  //     phone: "47589240053324",
-  //     group: "friend",
-  //   },
-
-  //   {
-  //     name: "Ewi kisito",
-  //     email: "ewikisito@gmail.com",
-  //     phone: "690234567",
-  //     group: "friend",
-  //   },
-  // ];
-
   useEffect(() => {
     let isMounted = true;
     const loadInitialContacts = async () => {
