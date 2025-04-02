@@ -35,7 +35,7 @@ export default function ContactList({
         selectedGroup === "all" || contact.group === selectedGroup;
       return matchesSearch && matchesGroup;
     })
-    // Add sorting here
+
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
@@ -52,13 +52,6 @@ export default function ContactList({
             <div className={style.contactContent}>
               <div className={style.contactHeader}>
                 <div className={style.contactInfo}>
-                  {contact.picture && (
-                    <img
-                      src={contact.picture}
-                      alt={`${contact.name}'s profile`}
-                      className={style.contactImage}
-                    />
-                  )}
                   <div className={style.contactIcon}>
                     {groupIcons[contact.group]}
                   </div>

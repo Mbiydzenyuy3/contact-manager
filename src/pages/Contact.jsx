@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MdAdd, MdSearch } from "react-icons/md";
 import ContactList from "../components/ContactList";
@@ -59,16 +59,65 @@ function Contact() {
     dispatch(deleteContact(id));
   };
 
-  // Fetch test contacts using the API
-  const loadTestContacts = async () => {
-    try {
-      dispatch(fetchContactsStart());
-      const testContacts = await fetchTestContacts(10); // Fetching 10 contacts
-      dispatch(fetchContactsSuccess(testContacts));
-    } catch (error) {
-      dispatch(fetchContactsFailure(error.message));
-    }
-  };
+  // const myContacts = [
+  //   {
+  //     name: "Emelia Jackson",
+  //     email: "emeliajackson@gmail.com",
+  //     phone: "347809076378",
+  //     group: "personal",
+  //   },
+
+  //   {
+  //     name: "Penn Jude",
+  //     email: "pennjude@gmail.com",
+  //     phone: "3237678983412",
+  //     group: "family",
+  //   },
+
+  //   {
+  //     name: "Eileen Leila",
+  //     email: "eileenleila@gmail.com",
+  //     phone: "654007823",
+  //     group: "Business",
+  //   },
+
+  //   {
+  //     name: "Arlette Ciara",
+  //     email: "ciaragospel@gmail.com",
+  //     phone: "47589240053324",
+  //     group: "friend",
+  //   },
+
+  //   {
+  //     name: "Ewi kisito",
+  //     email: "ewikisito@gmail.com",
+  //     phone: "690234567",
+  //     group: "friend",
+  //   },
+  // ];
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadInitialContacts = async () => {
+      try {
+        dispatch(fetchContactsStart());
+        const initialContacts = await fetchTestContacts(5);
+        if (isMounted) {
+          dispatch(fetchContactsSuccess(initialContacts));
+        }
+      } catch (error) {
+        if (isMounted) {
+          dispatch(fetchContactsFailure(error.message));
+        }
+      }
+    };
+
+    loadInitialContacts();
+
+    return () => {
+      isMounted = false; // Cleanup to prevent state updates on unmounted component
+    };
+  }, [dispatch]);
 
   return (
     <div className={style.appContainer}>
@@ -82,15 +131,6 @@ function Contact() {
           >
             <MdAdd size={20} />
             Add Contact
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={loadTestContacts}
-            className={style.loadButton}
-            disabled={loading}
-          >
-            {loading ? "Loading..." : "Load Test Contacts"}
           </motion.button>
           <Link to="/">
             <button className="cta">Back to home</button>

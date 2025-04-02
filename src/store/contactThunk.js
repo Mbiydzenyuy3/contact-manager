@@ -1,4 +1,3 @@
-
 import { fetchTestContacts } from "../services/contactService";
 import {
   fetchContactsStart,
@@ -7,7 +6,7 @@ import {
 } from "./contactsSlice";
 
 export const fetchContacts =
-  (count = 10) =>
+  (count = 5) =>
   async (dispatch) => {
     try {
       dispatch(fetchContactsStart());

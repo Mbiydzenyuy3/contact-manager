@@ -13,9 +13,7 @@ const saveContacts = (contacts) => {
   try {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   } catch (error) {
-    throw new error(
-      "Check your form to see if contact is inputed correctly"
-    )
+    throw new error("Check your form to see if contact is inputed correctly");
   }
 };
 
@@ -66,6 +64,10 @@ const contactsSlice = createSlice({
     fetchContactsFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
+    },
+
+    clearContacts: (state) => {
+      state.contacts = [];
     },
   },
 });
