@@ -1,159 +1,153 @@
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MdAdd, MdSearch } from "react-icons/md";
-import ContactList from "../components/ContactList";
-import ContactForm from "../components/ContactForm";
-import { useDispatch, useSelector } from "react-redux";
-import style from "../components/Contact.module.css";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { MdClose } from "react-icons/md";
+import style from "../components/ContactForm.module.css";
 
-import {
-  addContact,
-  updateContact,
-  deleteContact,
-  setSearchTerm,
-  setSelectedGroup,
-  fetchContactsStart,
-  fetchContactsSuccess,
-  fetchContactsFailure,
-} from "../store/contactsSlice";
+const contactSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  phone: yup
+    .string()
+    .matches(/^[0-9]{8,15}$/, "Phone number must be between 8 and 15 digits")
+    .required("Phone number is required"),
+  group: yup.string().required("Group is required"),
+});
 
-import { fetchTestContacts } from "../services/contactService";
-
-function Contact() {
-  const dispatch = useDispatch();
-  const { contacts, searchTerm, selectedGroup, loading, error } = useSelector(
-    (state) => state.contacts
-  );
-  const [showForm, setShowForm] = useState(false);
-  const [editingContact, setEditingContact] = useState(null);
-  const [duplicateError, setDuplicateError] = useState(null);
-
-  const isDuplicateContact = (newContact) => {
-    return contacts.some(
-      (contact) =>
-        contact.phone === newContact.phone || contact.email === newContact.email
-    );
-  };
-
-  const handleAddContact = (newContact) => {
-    if (isDuplicateContact(newContact)) {
-      setDuplicateError("Contact with this email or phone already exists!");
-      return false;
-    }
-    dispatch(addContact(newContact));
-    return true;
-  };
-
-  const handleEditContact = (contact) => {
-    setEditingContact(contact);
-    setShowForm(true);
-  };
-
-  const handleUpdateContact = (updatedContact) => {
-    dispatch(updateContact({ ...updatedContact, id: editingContact.id }));
-    setEditingContact(null);
-  };
-
-  const handleDeleteContact = (id) => {
-    dispatch(deleteContact(id));
-  };
-
-  // Automatically fetch contacts when the component mounts
-  useEffect(() => {
-    const loadTestContacts = async () => {
-      try {
-        dispatch(fetchContactsStart());
-        const testContacts = await fetchTestContacts(10); // Fetching 10 contacts
-        dispatch(fetchContactsSuccess(testContacts));
-      } catch (error) {
-        dispatch(fetchContactsFailure(error.message));
+export default function ContactForm({
+  onSubmit,
+  onClose,
+  initialData = null,
+  duplicateError,
+  clearDuplicateError,
+}) {
+  const formik = useFormik({
+    initialValues: initialData || {
+      name: "",
+      email: "",
+      phone: "",
+      group: "personal",
+    },
+    validationSchema: contactSchema,
+    onSubmit: async (values) => {
+      const submissionResult = await onSubmit(values);
+      if (submissionResult !== false) {
+        onClose();
       }
-    };
-
-    loadTestContacts();
-  }, [dispatch]);
+    },
+  });
 
   return (
-    <div className={style.appContainer}>
-      <div className={style.contentWrapper}>
-        <div className={style.header}>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setShowForm(true)}
-            className={style.addButton}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={style.modalOverlay}
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className={style.modalContent}
+      >
+        <div className={style.formContainer}>
+          <button onClick={onClose} className={style.closeButton}>
+            <MdClose size={18} />
+          </button>
+          <h2 className={style.formTitle}>
+            {initialData ? "Edit Contact" : "Add Contact"}
+          </h2>
+          <form
+            onSubmit={formik.handleSubmit}
+            className={style.formSpace}
+            noValidate
           >
-            <MdAdd size={20} />
-            Add Contact
-          </motion.button>
-          <Link to="/">
-            <button className="cta">Back to home</button>
-          </Link>
+            <div className={style.formGroup}>
+              <label className={style.formLabel}>Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formik.values.name}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  clearDuplicateError?.();
+                }}
+                className={style.formInput}
+                placeholder="Enter name"
+              />
+              {formik.errors.name && formik.touched.name && (
+                <span className={style.error}>{formik.errors.name}</span>
+              )}
+            </div>
+            <div className={style.formGroup}>
+              <label className={style.formLabel}>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formik.values.email}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  clearDuplicateError?.();
+                }}
+                className={style.formInput}
+                placeholder="Enter email"
+              />
+              {formik.errors.email && formik.touched.email && (
+                <span className={style.error}>{formik.errors.email}</span>
+              )}
+            </div>
+            <div className={style.formGroup}>
+              <label className={style.formLabel}>Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formik.values.phone}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  clearDuplicateError?.();
+                }}
+                className={style.formInput}
+                placeholder="67838690"
+              />
+              {formik.errors.phone && formik.touched.phone && (
+                <span className={style.error}>{formik.errors.phone}</span>
+              )}
+            </div>
+            <div className={style.formGroup}>
+              <label className={style.formLabel}>Group</label>
+              <select
+                name="group"
+                value={formik.values.group}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  clearDuplicateError?.();
+                }}
+                className={style.formSelect}
+              >
+                <option value="professional">Professional</option>
+                <option value="personal">Personal</option>
+                <option value="work">Business</option>
+                <option value="family">Family</option>
+                <option value="friends">Friends</option>
+              </select>
+              {formik.errors.group && formik.touched.group && (
+                <span className={style.error}>{formik.errors.group}</span>
+              )}
+            </div>
+            {duplicateError && (
+              <div className={style.duplicateError}>{duplicateError}</div>
+            )}
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              type="submit"
+              className={style.submitButton}
+            >
+              {initialData ? "Update Contact" : "Add Contact"}
+            </motion.button>
+          </form>
         </div>
-
-        <div className={style.searchFilterContainer}>
-          <div className={style.searchWrapper}>
-            <MdSearch className={style.searchIcon} size={20} />
-            <input
-              type="text"
-              placeholder="Search contacts..."
-              value={searchTerm}
-              onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-              className={style.searchInput}
-            />
-          </div>
-          <select
-            value={selectedGroup}
-            onChange={(e) => dispatch(setSelectedGroup(e.target.value))}
-            className={style.groupSelect}
-          >
-            <option value="all">All Groups</option>
-            <option value="professional">Professional</option>
-            <option value="personal">Personal</option>
-            <option value="work">Business</option>
-            <option value="family">Family</option>
-            <option value="friends">Friends</option>
-          </select>
-        </div>
-
-        {error && <div className={style.errorMessage}>{error}</div>}
-        {loading && <div className={style.loadingSpinner}></div>}
-
-        <ContactList
-          contacts={contacts}
-          onEdit={handleEditContact}
-          onDelete={handleDeleteContact}
-          searchTerm={searchTerm}
-          selectedGroup={selectedGroup}
-        />
-
-        <AnimatePresence>
-          {showForm && (
-            <ContactForm
-              onSubmit={editingContact ? handleUpdateContact : handleAddContact}
-              onClose={() => {
-                setShowForm(false);
-                setEditingContact(null);
-                setDuplicateError(null);
-              }}
-              initialData={editingContact}
-              duplicateError={duplicateError}
-              clearDuplicateError={() => setDuplicateError(null)}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-
-      <footer className="footer-two">
-        <div className="footer-item-two">
-          <p className="text footer-text-two">
-            &copy; 2025 MEL Contact. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
-
-export default Contact;

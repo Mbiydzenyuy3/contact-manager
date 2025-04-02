@@ -13,7 +13,12 @@ import {
   deleteContact,
   setSearchTerm,
   setSelectedGroup,
+  fetchContactsStart,
+  fetchContactsSuccess,
+  fetchContactsFailure,
 } from "../store/contactsSlice";
+
+import { fetchTestContacts } from "../services/contactService";
 
 function Contact() {
   const dispatch = useDispatch();
@@ -54,6 +59,17 @@ function Contact() {
     dispatch(deleteContact(id));
   };
 
+  // Fetch test contacts using the API
+  const loadTestContacts = async () => {
+    try {
+      dispatch(fetchContactsStart());
+      const testContacts = await fetchTestContacts(10); // Fetching 10 contacts
+      dispatch(fetchContactsSuccess(testContacts));
+    } catch (error) {
+      dispatch(fetchContactsFailure(error.message));
+    }
+  };
+
   return (
     <div className={style.appContainer}>
       <div className={style.contentWrapper}>
@@ -67,7 +83,15 @@ function Contact() {
             <MdAdd size={20} />
             Add Contact
           </motion.button>
-
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={loadTestContacts}
+            className={style.loadButton}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Load Test Contacts"}
+          </motion.button>
           <Link to="/">
             <button className="cta">Back to home</button>
           </Link>
