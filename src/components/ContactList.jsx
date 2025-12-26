@@ -29,7 +29,9 @@ export default function ContactList({
     .filter((contact) => {
       const matchesSearch =
         contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchTerm.toLowerCase());
+        contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (contact.context &&
+          contact.context.toLowerCase().includes(searchTerm.toLowerCase()));
       const matchesGroup =
         selectedGroup === "all" || contact.group === selectedGroup;
       return matchesSearch && matchesGroup;
@@ -62,6 +64,11 @@ export default function ContactList({
                     <p className='text-gray-500 text-sm mt-1'>
                       {contact.phone}
                     </p>
+                    {contact.context && (
+                      <span className='inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-2'>
+                        {contact.context}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className='flex gap-2'>

@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdFlashOn } from "react-icons/md";
+import { useState } from "react";
 
 const contactSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -10,7 +11,8 @@ const contactSchema = yup.object().shape({
     .string()
     .matches(/^[0-9]{8,15}$/, "Phone number must be between 8 and 15 digits")
     .required("Phone number is required"),
-  group: yup.string().required("Group is required")
+  group: yup.string().required("Group is required"),
+  context: yup.string()
 });
 
 export default function ContactForm({
@@ -20,12 +22,46 @@ export default function ContactForm({
   duplicateError,
   clearDuplicateError
 }) {
+  const [pasteText, setPasteText] = useState("");
+
+  const parseContactInfo = () => {
+    const text = pasteText.trim();
+    if (!text) return;
+
+    // Extract email
+    const emailMatch = text.match(
+      /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/i
+    );
+    const email = emailMatch ? emailMatch[0] : "";
+
+    // Extract phone (simple pattern for digits)
+    const phoneMatch = text.match(/\b\d{8,15}\b/);
+    const phone = phoneMatch ? phoneMatch[0] : "";
+
+    // Extract name: assume first line or before email
+    let name = "";
+    const lines = text
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line);
+    if (lines.length > 0) {
+      name = lines[0].replace(email, "").replace(phone, "").trim();
+      if (!name && lines.length > 1) name = lines[1];
+    }
+
+    // Set formik values
+    formik.setFieldValue("name", name);
+    formik.setFieldValue("email", email);
+    formik.setFieldValue("phone", phone);
+  };
+
   const formik = useFormik({
     initialValues: initialData || {
       name: "",
       email: "",
       phone: "",
-      group: "personal"
+      group: "personal",
+      context: ""
     },
     validationSchema: contactSchema,
     onSubmit: async (values) => {
@@ -59,6 +95,30 @@ export default function ContactForm({
           <h2 className='text-xl font-bold text-gray-900 mb-6'>
             {initialData ? "Edit Contact" : "Add Contact"}
           </h2>
+          {!initialData && (
+            <div className='mb-6 p-4 bg-gray-50 rounded-lg'>
+              <label className='block text-sm font-medium text-gray-700 mb-2'>
+                Quick Add: Paste LinkedIn Bio or Email Signature
+              </label>
+              <textarea
+                value={pasteText}
+                onChange={(e) => setPasteText(e.target.value)}
+                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mb-3'
+                rows={4}
+                placeholder='Paste contact information here...'
+              />
+              <motion.button
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                type='button'
+                onClick={parseContactInfo}
+                className='bg-blue-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-blue-600'
+              >
+                <MdFlashOn size={16} />
+                Parse and Fill
+              </motion.button>
+            </div>
+          )}
           <form onSubmit={formik.handleSubmit} noValidate>
             <div className='mb-4'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
@@ -145,6 +205,22 @@ export default function ContactForm({
                   {formik.errors.group}
                 </span>
               )}
+            </div>
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700 mb-2'>
+                How we met (Context)
+              </label>
+              <input
+                type='text'
+                name='context'
+                value={formik.values.context}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  clearDuplicateError?.();
+                }}
+                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mt-2.5'
+                placeholder='e.g., Met at conference, LinkedIn connection'
+              />
             </div>
             {duplicateError && (
               <div className='text-red-600 bg-red-100 p-3 mb-4 rounded border border-red-400 text-center'>
