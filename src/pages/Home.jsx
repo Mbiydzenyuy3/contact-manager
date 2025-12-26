@@ -21,17 +21,17 @@ export default function Home() {
               </h1>
 
               <div className={style.buttonGroup}>
-                <Link to="/contact" className={style.primaryButton}>
-                  <span className="start-free">Get Started</span>
+                <Link to='/contact' className={style.primaryButton}>
+                  <span className='start-free'>Get Started</span>
                   <SparklesIcon className={style.iconSpacing} />
                 </Link>
               </div>
             </div>
           </div>
         </header>
-        <footer className="footer">
-          <div className="footer-item">
-            <p className="text footer-text">
+        <footer className='footer'>
+          <div className='footer-item'>
+            <p className='text footer-text'>
               © 2024 MEL Contacts. All rights reserved.
             </p>
           </div>

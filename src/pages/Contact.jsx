@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { MdAdd, MdSearch } from "react-icons/md";
 import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
@@ -15,7 +15,7 @@ import {
   setSelectedGroup,
   fetchContactsStart,
   fetchContactsSuccess,
-  fetchContactsFailure,
+  fetchContactsFailure
 } from "../store/contactsSlice";
 
 import { fetchTestContacts } from "../services/contactService";
@@ -95,8 +95,8 @@ function Contact() {
             <MdAdd size={20} />
             Add Contact
           </motion.button>
-          <Link to="/">
-            <button className="cta">Back to home</button>
+          <Link to='/'>
+            <button className='cta'>Back to home</button>
           </Link>
         </div>
 
@@ -104,8 +104,8 @@ function Contact() {
           <div className={style.searchWrapper}>
             <MdSearch className={style.searchIcon} size={20} />
             <input
-              type="text"
-              placeholder="Search contacts..."
+              type='text'
+              placeholder='Search contacts...'
               value={searchTerm}
               onChange={(e) => dispatch(setSearchTerm(e.target.value))}
               className={style.searchInput}
@@ -116,12 +116,12 @@ function Contact() {
             onChange={(e) => dispatch(setSelectedGroup(e.target.value))}
             className={style.groupSelect}
           >
-            <option value="all">All Groups</option>
-            <option value="professional">Professional</option>
-            <option value="personal">Personal</option>
-            <option value="work">Business</option>
-            <option value="family">Family</option>
-            <option value="friends">Friends</option>
+            <option value='all'>All Groups</option>
+            <option value='professional'>Professional</option>
+            <option value='personal'>Personal</option>
+            <option value='work'>Business</option>
+            <option value='family'>Family</option>
+            <option value='friends'>Friends</option>
           </select>
         </div>
 
@@ -153,9 +153,9 @@ function Contact() {
         </AnimatePresence>
       </div>
 
-      <footer className="footer-two">
-        <div className="footer-item-two">
-          <p className="text footer-text-two">
+      <footer className='footer-two'>
+        <div className='footer-item-two'>
+          <p className='text footer-text-two'>
             &copy; 2025 MEL Contact. All rights reserved.
           </p>
         </div>
