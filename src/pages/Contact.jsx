@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { MdAdd, MdSearch } from "react-icons/md";
+import React, { useState } from "react";
+import { MdAdd, MdSearch, MdArrowBack } from "react-icons/md";
 import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
 import { useDispatch, useSelector } from "react-redux";
-import style from "../components/Contact.module.css";
 import { Link } from "react-router-dom";
 
 import {
@@ -11,13 +10,8 @@ import {
   updateContact,
   deleteContact,
   setSearchTerm,
-  setSelectedGroup,
-  fetchContactsStart,
-  fetchContactsSuccess,
-  fetchContactsFailure
+  setSelectedGroup
 } from "../store/contactsSlice";
-
-import { fetchTestContacts } from "../services/contactService";
 
 function Contact() {
   const dispatch = useDispatch();
@@ -58,57 +52,65 @@ function Contact() {
     dispatch(deleteContact(id));
   };
 
-  useEffect(() => {
-    let isMounted = true;
-    const loadInitialContacts = async () => {
-      try {
-        dispatch(fetchContactsStart());
-        const initialContacts = await fetchTestContacts(5);
-        if (isMounted) {
-          dispatch(fetchContactsSuccess(initialContacts));
-        }
-      } catch (error) {
-        if (isMounted) {
-          dispatch(fetchContactsFailure(error.message));
-        }
-      }
-    };
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const loadInitialContacts = async () => {
+  //     try {
+  //       dispatch(fetchContactsStart());
+  //       const initialContacts = await fetchTestContacts(5);
+  //       if (isMounted) {
+  //         dispatch(fetchContactsSuccess(initialContacts));
+  //       }
+  //     } catch (error) {
+  //       if (isMounted) {
+  //         dispatch(fetchContactsFailure(error.message));
+  //       }
+  //     }
+  //   };
 
-    loadInitialContacts();
+  //   loadInitialContacts();
 
-    return () => {
-      isMounted = false; // Cleanup to prevent state updates on unmounted component
-    };
-  }, [dispatch]);
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [dispatch]);
 
   return (
-    <div className={style.appContainer}>
-      <div className={style.contentWrapper}>
-        <div className={style.header}>
-          <button onClick={() => setShowForm(true)} className={style.addButton}>
+    <div className='w-full min-h-screen bg-gray-50 flex flex-col justify-center items-center gap-8'>
+      <div className='max-w-7xl mx-auto p-6'>
+        <div className='flex items-center justify-between mb-8'>
+          <button
+            onClick={() => setShowForm(true)}
+            className='bg-purple-500 text-white px-6 py-3 border-none rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 shadow-sm'
+          >
             <MdAdd size={20} />
             Add Contact
           </button>
           <Link to='/'>
-            <button className='cta'>Back to home</button>
+            <button className='text-gray-700 px-6 py-3 border border-2 border-purple-900 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 shadow-sm'>
+              <MdArrowBack /> Back
+            </button>
           </Link>
         </div>
 
-        <div className={style.searchFilterContainer}>
-          <div className={style.searchWrapper}>
-            <MdSearch className={style.searchIcon} size={20} />
+        <div className='flex mb-6 border border-gray-300 rounded-lg'>
+          <div className='flex-1 relative'>
+            <MdSearch
+              className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500'
+              size={20}
+            />
             <input
               type='text'
               placeholder='Search contacts...'
               value={searchTerm}
               onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-              className={style.searchInput}
+              className='w-full py-3 pl-10 pr-4 border-0 rounded-lg transition-all focus:outline-none'
             />
           </div>
           <select
             value={selectedGroup}
             onChange={(e) => dispatch(setSelectedGroup(e.target.value))}
-            className={style.groupSelect}
+            className='min-w-40 transition-all focus:outline-none z-1 text-center'
           >
             <option value='all'>All Groups</option>
             <option value='professional'>Professional</option>
@@ -119,8 +121,14 @@ function Contact() {
           </select>
         </div>
 
-        {error && <div className={style.errorMessage}>{error}</div>}
-        {loading && <div className={style.loadingSpinner}></div>}
+        {error && (
+          <div className='text-red-600 p-2.5 mb-2.5 rounded text-center'>
+            {error}
+          </div>
+        )}
+        {loading && (
+          <div className='border-4 border-gray-300 border-t-blue-500 rounded-full w-10 h-10 animate-spin mx-auto my-5'></div>
+        )}
 
         <ContactList
           contacts={contacts}
@@ -147,10 +155,10 @@ function Contact() {
         </div>
       </div>
 
-      <footer className='footer-two'>
-        <div className='footer-item-two'>
-          <p className='text footer-text-two'>
-            &copy; 2025 KITH Contact. All rights reserved.
+      <footer className='mt-32'>
+        <div>
+          <p className='text-black text-center mt-56'>
+            &copy; {new Date().getFullYear()} KITH. All rights reserved.
           </p>
         </div>
       </footer>
