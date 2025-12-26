@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
 import { MdAdd, MdSearch } from "react-icons/md";
 import ContactList from "../components/ContactList";
 import ContactForm from "../components/ContactForm";
@@ -86,15 +85,10 @@ function Contact() {
     <div className={style.appContainer}>
       <div className={style.contentWrapper}>
         <div className={style.header}>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setShowForm(true)}
-            className={style.addButton}
-          >
+          <button onClick={() => setShowForm(true)} className={style.addButton}>
             <MdAdd size={20} />
             Add Contact
-          </motion.button>
+          </button>
           <Link to='/'>
             <button className='cta'>Back to home</button>
           </Link>
@@ -136,7 +130,7 @@ function Contact() {
           selectedGroup={selectedGroup}
         />
 
-        <AnimatePresence>
+        <div>
           {showForm && (
             <ContactForm
               onSubmit={editingContact ? handleUpdateContact : handleAddContact}
@@ -150,7 +144,7 @@ function Contact() {
               clearDuplicateError={() => setDuplicateError(null)}
             />
           )}
-        </AnimatePresence>
+        </div>
       </div>
 
       <footer className='footer-two'>
