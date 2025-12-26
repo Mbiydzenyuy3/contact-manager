@@ -14,7 +14,7 @@ export default function Home() {
                   Organize Your Connections
                 </span>
                 <p className={style.subHeading}>
-                  Welcome to MEL Contacts, where we keep your connections saved
+                  Welcome to KITH Contacts, where we keep your connections saved
                   and organized. <br /> Create lasting connections today, get
                   started by clicking on the button get started
                 </p>
@@ -32,7 +32,7 @@ export default function Home() {
         <footer className='footer'>
           <div className='footer-item'>
             <p className='text footer-text'>
-              © 2024 MEL Contacts. All rights reserved.
+              © 2024 KITH Contacts. All rights reserved.
             </p>
           </div>
         </footer>

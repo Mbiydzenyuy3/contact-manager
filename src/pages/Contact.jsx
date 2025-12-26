@@ -150,7 +150,7 @@ function Contact() {
       <footer className='footer-two'>
         <div className='footer-item-two'>
           <p className='text footer-text-two'>
-            &copy; 2025 MEL Contact. All rights reserved.
+            &copy; 2025 KITH Contact. All rights reserved.
           </p>
         </div>
       </footer>
