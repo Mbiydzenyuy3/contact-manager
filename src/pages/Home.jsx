@@ -41,7 +41,7 @@ export default function Home() {
                 className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
               >
                 <SparklesIcon className='w-5 h-5 mr-2' />
-                Try the Parser
+                Auto-Fill for Me{" "}
               </Link>
               <p className='text-sm text-gray-400'>
                 No account required • Instant parsing
