@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { MdClose, MdFlashOn } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import { useState } from "react";
 
 const contactSchema = yup.object().shape({
@@ -23,6 +23,7 @@ export default function ContactForm({
   clearDuplicateError
 }) {
   const [pasteText, setPasteText] = useState("");
+  const [parseMessage, setParseMessage] = useState("");
 
   const parseContactInfo = () => {
     const text = pasteText.trim();
@@ -48,11 +49,33 @@ export default function ContactForm({
       name = lines[0].replace(email, "").replace(phone, "").trim();
       if (!name && lines.length > 1) name = lines[1];
     }
+    // Clean name: remove parentheses like (( Pythonista ))
+    name = name.replace(/\(\([^)]*\)\)/g, "").trim();
 
     // Set formik values
     formik.setFieldValue("name", name);
     formik.setFieldValue("email", email);
     formik.setFieldValue("phone", phone);
+
+    // Provide feedback
+    const fields = [];
+    if (name) fields.push(`Name: ${name}`);
+    if (email) fields.push(`Email: ${email}`);
+    if (phone) fields.push(`Phone: ${phone}`);
+    if (fields.length === 0) {
+      setParseMessage(
+        "No contact information found in the pasted text. Please ensure it includes name, email, or phone details."
+      );
+    } else {
+      setParseMessage(`Parsed: ${fields.join(", ")}`);
+      if (!email && !phone) {
+        setParseMessage(
+          (prev) =>
+            prev +
+            ". Note: Email and phone are required; please fill them manually if not parsed."
+        );
+      }
+    }
   };
 
   const formik = useFormik({
@@ -102,7 +125,10 @@ export default function ContactForm({
               </label>
               <textarea
                 value={pasteText}
-                onChange={(e) => setPasteText(e.target.value)}
+                onChange={(e) => {
+                  setPasteText(e.target.value);
+                  setParseMessage("");
+                }}
                 className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mb-3'
                 rows={4}
                 placeholder='Paste contact information here...'
@@ -114,9 +140,14 @@ export default function ContactForm({
                 onClick={parseContactInfo}
                 className='bg-blue-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-blue-600'
               >
-                <MdFlashOn size={16} />
-                Parse and Fill
+                {/* <MdFlashOn size={16} /> */}
+                Auto-Fill for Me{" "}
               </motion.button>
+              {parseMessage && (
+                <p className='text-sm text-gray-600 mt-2 whitespace-pre-line'>
+                  {parseMessage}
+                </p>
+              )}
             </div>
           )}
           <form onSubmit={formik.handleSubmit} noValidate>

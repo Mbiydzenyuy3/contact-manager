@@ -87,7 +87,7 @@ function Contact() {
             Add Contact
           </button>
           <Link to='/'>
-            <button className='text-gray-700 px-6 py-3 border border-2 border-purple-900 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 shadow-sm'>
+            <button className='text-gray-700 px-6 py-3 border border-2 border-purple-900 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 hover:text-white hover:border-0 shadow-sm'>
               <MdArrowBack /> Back
             </button>
           </Link>
