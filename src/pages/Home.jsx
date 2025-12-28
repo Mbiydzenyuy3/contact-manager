@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { SparklesIcon } from "@heroicons/react/outline";
 
@@ -35,13 +35,13 @@ export default function Home() {
               />
             </div>
 
-            <div className='flex flex-col sm:flex-row gap-4 justify-center items-center'>
+            <div className='flex flex-col gap-4 justify-center items-center'>
               <Link
-                to='/contact'
+                to='/auth'
                 className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
               >
                 <SparklesIcon className='w-5 h-5 mr-2' />
-                Auto-Fill for Me{" "}
+                Get Started{" "}
               </Link>
               <p className='text-sm text-gray-400'>
                 No account required • Instant parsing

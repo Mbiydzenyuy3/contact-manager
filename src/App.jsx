@@ -1,18 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
+import Auth from "./components/Auth";
+import LinkSent from "./pages/LinkSent";
+import { ContactProvider } from "./lib/ContactContext";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ContactProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/link-sent' element={<LinkSent />} />
+          <Route path='/contacts' element={<Contact />} />
         </Routes>
-      </BrowserRouter>
-    </Provider>
+      </ContactProvider>
+    </BrowserRouter>
   );
 }

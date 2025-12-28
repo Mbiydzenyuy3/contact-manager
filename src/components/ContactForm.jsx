@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { MdClose } from "react-icons/md";
 import { useState } from "react";
+import { useContacts } from "../lib/ContactContext";
 
 const contactSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -22,10 +23,11 @@ export default function ContactForm({
   duplicateError,
   clearDuplicateError
 }) {
+  const { addContact } = useContacts();
   const [pasteText, setPasteText] = useState("");
   const [parseMessage, setParseMessage] = useState("");
 
-  const parseContactInfo = () => {
+  const parseContactInfo = async () => {
     const text = pasteText.trim();
     if (!text) return;
 
@@ -52,28 +54,40 @@ export default function ContactForm({
     // Clean name: remove parentheses like (( Pythonista ))
     name = name.replace(/\(\([^)]*\)\)/g, "").trim();
 
-    // Set formik values
-    formik.setFieldValue("name", name);
-    formik.setFieldValue("email", email);
-    formik.setFieldValue("phone", phone);
-
-    // Provide feedback
-    const fields = [];
-    if (name) fields.push(`Name: ${name}`);
-    if (email) fields.push(`Email: ${email}`);
-    if (phone) fields.push(`Phone: ${phone}`);
-    if (fields.length === 0) {
-      setParseMessage(
-        "No contact information found in the pasted text. Please ensure it includes name, email, or phone details."
-      );
+    // If all fields parsed, add contact directly
+    if (name && email && phone) {
+      await addContact({
+        full_name: name,
+        email,
+        phone,
+        context_tag: "Parsed from paste"
+      });
+      setParseMessage("Contact added successfully!");
+      setPasteText("");
     } else {
-      setParseMessage(`Parsed: ${fields.join(", ")}`);
-      if (!email && !phone) {
+      // Set formik values
+      formik.setFieldValue("name", name);
+      formik.setFieldValue("email", email);
+      formik.setFieldValue("phone", phone);
+
+      // Provide feedback
+      const fields = [];
+      if (name) fields.push(`Name: ${name}`);
+      if (email) fields.push(`Email: ${email}`);
+      if (phone) fields.push(`Phone: ${phone}`);
+      if (fields.length === 0) {
         setParseMessage(
-          (prev) =>
-            prev +
-            ". Note: Email and phone are required; please fill them manually if not parsed."
+          "No contact information found in the pasted text. Please ensure it includes name, email, or phone details."
         );
+      } else {
+        setParseMessage(`Parsed: ${fields.join(", ")}`);
+        if (!email && !phone) {
+          setParseMessage(
+            (prev) =>
+              prev +
+              ". Note: Email and phone are required; please fill them manually if not parsed."
+          );
+        }
       }
     }
   };
@@ -106,7 +120,7 @@ export default function ContactForm({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className='bg-white rounded-xl shadow-lg w-full max-w-sm relative overflow-hidden'
+        className='bg-white rounded-xl shadow-lg w-full max-w-md relative overflow-hidden'
       >
         <div className='p-6'>
           <button
