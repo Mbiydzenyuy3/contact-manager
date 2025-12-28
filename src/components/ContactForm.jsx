@@ -120,7 +120,7 @@ export default function ContactForm({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className='bg-white rounded-xl shadow-lg w-full max-w-sm relative overflow-hidden'
+        className='bg-white rounded-xl shadow-lg w-full max-w-md relative overflow-hidden'
       >
         <div className='p-6'>
           <button

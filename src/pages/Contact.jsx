@@ -105,18 +105,20 @@ function Contact() {
 
   return (
     <div className='w-full min-h-screen bg-gray-50 flex flex-col justify-center items-center gap-8'>
-      <div className='max-w-7xl mx-auto p-6'>
-        <div className='flex items-center justify-between mb-8'>
+      <div className='max-w-7xl mx-auto p-4 sm:p-6'>
+        <div className='flex items-center justify-between mb-8 gap-2'>
           <button
             onClick={() => setShowForm(true)}
-            className='bg-purple-500 text-white px-6 py-3 border-none rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 shadow-sm'
+            className='bg-purple-500 text-white px-4 py-3 border-none rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 shadow-sm text-sm sm:text-base'
           >
             <MdAdd size={20} />
-            Add Contact
+            <span className='hidden sm:inline'>Add Contact</span>
+            <span className='sm:hidden'>Add</span>
           </button>
           <Link to='/'>
-            <button className='text-gray-700 px-6 py-3 border border-2 border-purple-900 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 hover:text-white hover:border-0 shadow-sm'>
-              <MdArrowBack /> Back
+            <button className='text-gray-700 px-4 py-3 border border-2 border-purple-900 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-purple-600 hover:text-white hover:border-0 shadow-sm text-sm sm:text-base'>
+              <MdArrowBack />
+              <span className='hidden sm:inline'>Back</span>
             </button>
           </Link>
         </div>
@@ -132,13 +134,13 @@ function Contact() {
               placeholder='Search contacts...'
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className='w-full py-3 pl-10 pr-4 border-0 rounded-lg transition-all focus:outline-none'
+              className='w-full py-3 pl-10 pr-4 border-0 rounded-l-lg transition-all focus:outline-none'
             />
           </div>
           <select
             value={selectedGroup}
             onChange={(e) => setSelectedGroup(e.target.value)}
-            className='min-w-40 transition-all focus:outline-none z-1 text-center'
+            className='min-w-32 sm:min-w-40 transition-all focus:outline-none z-1 text-center rounded-r-lg border-l border-gray-300'
           >
             <option value='all'>All Groups</option>
             <option value='professional'>Professional</option>
@@ -175,13 +177,13 @@ function Contact() {
         </div>
       </div>
 
-      <footer className='mt-32'>
+      {/* <footer className='mt-8'>
         <div>
-          <p className='text-black text-center mt-56'>
+          <p className='text-black text-center mt-4'>
             &copy; {new Date().getFullYear()} KITH. All rights reserved.
           </p>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }

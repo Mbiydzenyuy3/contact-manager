@@ -50,8 +50,8 @@ export default function ContactList({
             exit={{ opacity: 0, y: -20 }}
             className='bg-white rounded-xl shadow-lg transition-all transform translate-y-0 hover:shadow-2xl hover:-translate-y-1'
           >
-            <div className='p-6'>
-              <div className='flex items-center justify-between'>
+            <div className='p-4 sm:p-6'>
+              <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
                 <div className='flex items-center gap-4'>
                   <div className='text-3xl bg-gray-100 p-3 rounded-lg'>
                     {groupIcons[contact.group]}
@@ -71,7 +71,7 @@ export default function ContactList({
                     )}
                   </div>
                 </div>
-                <div className='flex gap-2'>
+                <div className='flex gap-2 self-end sm:self-auto'>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
