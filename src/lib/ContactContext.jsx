@@ -39,6 +39,7 @@ export const ContactProvider = ({ children }) => {
     const { data, error } = await supabase
       .from("contacts")
       .select("*")
+      .eq("user_id", user.id)
       .order("created_at", { ascending: false });
     if (!error) setContacts(data);
   };
@@ -51,7 +52,7 @@ export const ContactProvider = ({ children }) => {
 
     const { data, error } = await supabase
       .from("contacts")
-      .insert([newContact])
+      .insert([{ ...newContact, user_id: user.id }])
       .select();
 
     if (error) {
@@ -75,7 +76,8 @@ export const ContactProvider = ({ children }) => {
     const { error } = await supabase
       .from("contacts")
       .update(updatedContact)
-      .eq("id", id);
+      .eq("id", id)
+      .eq("user_id", user.id);
     if (error) {
       alert("Error updating contact: " + error.message);
     } else {
@@ -88,7 +90,11 @@ export const ContactProvider = ({ children }) => {
 
   const deleteContact = async (id) => {
     if (!user) return;
-    const { error } = await supabase.from("contacts").delete().eq("id", id);
+    const { error } = await supabase
+      .from("contacts")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", user.id);
     if (error) {
       alert("Error deleting contact: " + error.message);
     } else {
