@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  SparklesIcon,
   ClipboardIcon,
   UserGroupIcon,
   ArrowRightIcon,
@@ -35,34 +34,10 @@ export default function Home() {
             <h1 className='text-4xl md:text-6xl font-bold text-white mb-6'>
               Your Smart Contact Manager
             </h1>
-            <p className='text-lg md:text-xl text-purple-200 mb-4'>
-              Keep track of professional and personal connections
-            </p>
-            <p className='text-base text-gray-300 mb-8 max-w-2xl mx-auto'>
-              Remember how you met someone, store their details, and organize by
-              groups. Just paste a profile or contact info to auto-fill and add
-              context.
-            </p>
-            <div className='mb-8'>
-              <label className='block text-gray-300 mb-2 text-center'>
-                Try it now: Paste any contact info here
-              </label>
-              <textarea
-                value={pasteText}
-                onChange={handlePaste}
-                placeholder='e.g., John Doe&#10;john@example.com&#10;Met at Tech Conference 2023'
-                className='w-full max-w-2xl h-32 p-6 text-lg border-2 border-purple-400 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 focus:outline-none focus:border-purple-300 focus:ring-2 focus:ring-purple-500 resize-none'
-              />
-            </div>
-            <Link
-              to='/auth'
-              className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
-            >
-              <SparklesIcon className='w-5 h-5 mr-2' />
-              Get Started
-            </Link>
-            <p className='text-sm text-gray-400 mt-4'>
-              No account required • Instant parsing
+            <p className='text-lg md:text-xl text-purple-200 mb-8 max-w-2xl mx-auto'>
+              Keep track of professional and personal connections. Remember how
+              you met someone, store their details, and organize by groups. Just
+              paste a profile or contact info to auto-fill and add context.
             </p>
           </div>
         </section>
@@ -168,9 +143,23 @@ export default function Home() {
             <h2 className='text-3xl md:text-4xl font-bold text-white mb-6'>
               Start Managing Your Contacts Today
             </h2>
-            <p className='text-lg text-gray-300 mb-8'>
+            <p className='text-lg text-gray-300 mb-4'>
               Effortlessly keep track of your professional and personal
               connections.
+            </p>
+            <div className='mb-4'>
+              <label className='block text-gray-300 mb-2 text-center'>
+                Try it now: Paste any contact info here
+              </label>
+              <textarea
+                value={pasteText}
+                onChange={handlePaste}
+                placeholder='e.g., John Doe&#10;john@example.com&#10;Met at Tech Conference 2023'
+                className='w-full max-w-2xl h-32 p-6 text-lg border-2 border-purple-400 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 focus:outline-none focus:border-purple-300 focus:ring-2 focus:ring-purple-500 resize-none'
+              />
+            </div>
+            <p className='text-sm text-gray-400 mb-8'>
+              No account required • Instant parsing
             </p>
             <Link
               to='/auth'
