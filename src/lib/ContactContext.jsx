@@ -46,7 +46,6 @@ export const ContactProvider = ({ children }) => {
 
   const addContact = async (newContact) => {
     if (!user) return;
-    // Optimistic update
     const tempId = Date.now().toString();
     setContacts([{ ...newContact, id: tempId }, ...contacts]);
 
@@ -56,11 +55,9 @@ export const ContactProvider = ({ children }) => {
       .select();
 
     if (error) {
-      // Rollback
       setContacts(contacts.filter((c) => c.id !== tempId));
       alert("Error adding contact: " + error.message);
     } else {
-      // Update with real data
       setContacts((prev) => prev.map((c) => (c.id === tempId ? data[0] : c)));
     }
   };
@@ -81,7 +78,6 @@ export const ContactProvider = ({ children }) => {
     if (error) {
       alert("Error updating contact: " + error.message);
     } else {
-      // Update local state
       setContacts((prev) =>
         prev.map((c) => (c.id === id ? { ...c, ...updatedContact } : c))
       );
