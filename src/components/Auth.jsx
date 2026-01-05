@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useContacts } from "../lib/ContactContext";
 
 export default function Auth() {
@@ -48,6 +48,11 @@ export default function Auth() {
           {loading ? "Sending..." : "Send Link"}
         </button>
       </form>
+      <div className='text-center mt-4'>
+        <Link to='/' className='text-sm text-gray-500 hover:text-gray-700'>
+          Back to Home
+        </Link>
+      </div>
     </div>
   );
 }

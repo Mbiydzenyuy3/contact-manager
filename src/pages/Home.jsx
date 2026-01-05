@@ -21,10 +21,30 @@ export default function Home() {
             <p className='text-xl md:text-2xl text-purple-200 mb-2'>
               Never forget how you met.
             </p>
-            <p className='text-lg text-gray-300 mb-12 max-w-2xl mx-auto'>
-              Your brain is for having ideas, not for remembering email
-              signatures.
+            <p className='text-lg text-gray-300 mb-8 max-w-2xl mx-auto'>
+              KITH is your smart contact manager. Paste contact info from
+              emails, LinkedIn profiles, or anywhere else, and we'll organize it
+              for you with context on how you met each person.
             </p>
+            <div className='text-left text-gray-300 mb-12 max-w-2xl mx-auto'>
+              <h3 className='text-lg font-semibold mb-4 text-center'>
+                How it works:
+              </h3>
+              <ul className='list-disc list-inside space-y-2'>
+                <li>
+                  Paste any contact information (email signatures, LinkedIn
+                  URLs, etc.)
+                </li>
+                <li>Our parser extracts names, emails, phones, and more</li>
+                <li>
+                  Add context about how you met to never forget important
+                  connections
+                </li>
+                <li>
+                  Organize contacts by groups (work, personal, family, etc.)
+                </li>
+              </ul>
+            </div>
 
             <div className='mb-8'>
               <textarea
