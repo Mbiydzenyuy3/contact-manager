@@ -114,7 +114,7 @@ export default function ContactForm({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className='bg-white rounded-xl shadow-lg w-full max-w-md relative overflow-hidden'
+        className='bg-white rounded-xl shadow-lg w-full max-w-md relative max-h-[90vh] overflow-y-auto'
       >
         <div className='p-6'>
           <button
@@ -129,7 +129,7 @@ export default function ContactForm({
           {!initialData && (
             <div className='mb-6 p-4 bg-gray-50 rounded-lg'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Quick Add: Paste LinkedIn Bio or Email Signature
+                Quick Add: Paste contacts information below
               </label>
               <textarea
                 value={pasteText}
@@ -138,7 +138,7 @@ export default function ContactForm({
                   setParseMessage("");
                 }}
                 className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mb-3'
-                rows={4}
+                rows={3}
                 placeholder='Paste contact information here...'
               />
               <motion.button
