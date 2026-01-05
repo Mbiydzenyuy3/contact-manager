@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { useContacts } from "../lib/ContactContext";
 
 export default function Auth() {
@@ -22,11 +23,12 @@ export default function Auth() {
 
   return (
     <div className='min-h-screen relative flex flex-col gap-12 items-center justify-center bg-gray-50 px-4'>
-      <div className='text-center mt-4 absolute top-4 left-4'>
+      <div className='absolute top-6 left-6'>
         <Link
           to='/'
-          className='text-sm border border-green-900 text-gray-500 hover:text-gray-700'
+          className='inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm'
         >
+          <ArrowLeftIcon className='w-4 h-4 mr-2' />
           Back to Home
         </Link>
       </div>
