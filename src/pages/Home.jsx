@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SparklesIcon,
   ClipboardIcon,
   UserGroupIcon,
-  CogIcon,
-  CheckCircleIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  DocumentTextIcon
 } from "@heroicons/react/outline";
 
 export default function Home() {
+  const [pasteText, setPasteText] = useState("");
+
+  const handlePaste = (e) => {
+    const text = e.target.value;
+    setPasteText(text);
+  };
+
   return (
     <>
       <div className='w-full min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900'>
@@ -19,13 +25,24 @@ export default function Home() {
               KITH
             </h1>
             <p className='text-xl md:text-2xl text-purple-200 mb-4'>
-              Never forget how you met.
+              Your Smart Contact Manager
             </p>
             <p className='text-lg text-gray-300 mb-8 max-w-2xl mx-auto'>
-              KITH is your intelligent contact manager. Effortlessly organize
-              contacts from emails, LinkedIn, and more, with built-in context to
-              remember every connection.
+              Keep track of professional and personal connections. Remember how
+              you met someone, store their details, and organize by groups. Just
+              paste a profile or contact info to auto-fill and add context.
             </p>
+            <div className='mb-8'>
+              <label className='block text-gray-300 mb-2 text-center'>
+                Try it now: Paste any contact info here
+              </label>
+              <textarea
+                value={pasteText}
+                onChange={handlePaste}
+                placeholder='e.g., John Doe&#10;john@example.com&#10;Met at Tech Conference 2023'
+                className='w-full max-w-2xl h-32 p-6 text-lg border-2 border-purple-400 rounded-xl bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 focus:outline-none focus:border-purple-300 focus:ring-2 focus:ring-purple-500 resize-none'
+              />
+            </div>
             <Link
               to='/auth'
               className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
@@ -42,37 +59,37 @@ export default function Home() {
         <section className='py-20 px-4 bg-black/10'>
           <div className='max-w-6xl mx-auto'>
             <h2 className='text-3xl md:text-4xl font-bold text-white text-center mb-12'>
-              Powerful Features
+              Key Features
             </h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
               <div className='bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center'>
-                <ClipboardIcon className='w-12 h-12 text-purple-400 mx-auto mb-4' />
+                <DocumentTextIcon className='w-12 h-12 text-purple-400 mx-auto mb-4' />
                 <h3 className='text-xl font-semibold text-white mb-2'>
-                  Smart Parsing
+                  Quick Add by Pasting
                 </h3>
                 <p className='text-gray-300'>
-                  Paste contact info from anywhere—emails, LinkedIn, business
-                  cards—and let AI extract details instantly.
+                  Paste contact info from emails, LinkedIn, or anywhere. Our
+                  parser auto-fills the form instantly.
+                </p>
+              </div>
+              <div className='bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center'>
+                <ClipboardIcon className='w-12 h-12 text-purple-400 mx-auto mb-4' />
+                <h3 className='text-xl font-semibold text-white mb-2'>
+                  Contextual Notes
+                </h3>
+                <p className='text-gray-300'>
+                  Add notes on how you met to remember every connection and
+                  build meaningful relationships.
                 </p>
               </div>
               <div className='bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center'>
                 <UserGroupIcon className='w-12 h-12 text-purple-400 mx-auto mb-4' />
                 <h3 className='text-xl font-semibold text-white mb-2'>
-                  Contextual Notes
-                </h3>
-                <p className='text-gray-300'>
-                  Add notes on how you met each person to build meaningful
-                  relationships and never forget connections.
-                </p>
-              </div>
-              <div className='bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center'>
-                <CogIcon className='w-12 h-12 text-purple-400 mx-auto mb-4' />
-                <h3 className='text-xl font-semibold text-white mb-2'>
                   Organized Groups
                 </h3>
                 <p className='text-gray-300'>
-                  Categorize contacts into groups like work, personal, or family
-                  for easy management and quick access.
+                  Categorize contacts into work, personal, family, or custom
+                  groups for easy access and management.
                 </p>
               </div>
             </div>
@@ -82,7 +99,7 @@ export default function Home() {
         <section className='py-20 px-4'>
           <div className='max-w-6xl mx-auto'>
             <h2 className='text-3xl md:text-4xl font-bold text-white text-center mb-12'>
-              How It Works
+              How to Use KITH
             </h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
               <div className='text-center'>
@@ -90,10 +107,11 @@ export default function Home() {
                   <span className='text-white font-bold text-xl'>1</span>
                 </div>
                 <h3 className='text-xl font-semibold text-white mb-2'>
-                  Paste Info
+                  Paste Contact Info
                 </h3>
                 <p className='text-gray-300'>
-                  Copy contact details from emails, LinkedIn, or any source.
+                  Copy details from emails, LinkedIn profiles, or business
+                  cards.
                 </p>
               </div>
               <div className='text-center'>
@@ -101,11 +119,11 @@ export default function Home() {
                   <span className='text-white font-bold text-xl'>2</span>
                 </div>
                 <h3 className='text-xl font-semibold text-white mb-2'>
-                  Auto Extract
+                  Auto-Fill Form
                 </h3>
                 <p className='text-gray-300'>
-                  Our parser intelligently extracts names, emails, phones, and
-                  more.
+                  The parser extracts and fills in names, emails, phones
+                  automatically.
                 </p>
               </div>
               <div className='text-center'>
@@ -116,7 +134,7 @@ export default function Home() {
                   Add Context
                 </h3>
                 <p className='text-gray-300'>
-                  Include notes on how you met to personalize your contacts.
+                  Include how you met them in the context field to never forget.
                 </p>
               </div>
               <div className='text-center'>
@@ -124,10 +142,10 @@ export default function Home() {
                   <span className='text-white font-bold text-xl'>4</span>
                 </div>
                 <h3 className='text-xl font-semibold text-white mb-2'>
-                  Organize
+                  Organize & Access
                 </h3>
                 <p className='text-gray-300'>
-                  Group and manage contacts effortlessly for better networking.
+                  Group contacts and access them easily for better networking.
                 </p>
               </div>
             </div>
@@ -137,16 +155,17 @@ export default function Home() {
         <section className='py-20 px-4 bg-black/10'>
           <div className='max-w-4xl mx-auto text-center'>
             <h2 className='text-3xl md:text-4xl font-bold text-white mb-6'>
-              Ready to Manage Your Contacts Smarter?
+              Start Managing Your Contacts Today
             </h2>
             <p className='text-lg text-gray-300 mb-8'>
-              Join thousands of professionals who never forget a connection.
+              Effortlessly keep track of your professional and personal
+              connections.
             </p>
             <Link
               to='/auth'
               className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
             >
-              Start Organizing Now
+              Sign Up Now
               <ArrowRightIcon className='w-5 h-5 ml-2' />
             </Link>
           </div>

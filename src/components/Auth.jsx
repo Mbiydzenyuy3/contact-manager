@@ -21,7 +21,12 @@ export default function Auth() {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-50 px-4'>
+    <div className='min-h-screen flex flex-col gap-12 items-center justify-center bg-gray-50 px-4'>
+      <div className='text-center mt-4'>
+        <Link to='/' className='text-sm text-gray-500 hover:text-gray-700'>
+          Back to Home
+        </Link>
+      </div>
       <form
         onSubmit={handleSubmit}
         className='bg-white p-10 rounded-xl shadow-lg w-full max-w-sm md:max-w-md lg:max-w-lg'
@@ -48,11 +53,6 @@ export default function Auth() {
           {loading ? "Sending..." : "Send Link"}
         </button>
       </form>
-      <div className='text-center mt-4'>
-        <Link to='/' className='text-sm text-gray-500 hover:text-gray-700'>
-          Back to Home
-        </Link>
-      </div>
     </div>
   );
 }
