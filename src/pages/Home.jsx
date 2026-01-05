@@ -25,7 +25,7 @@ export default function Home() {
               to='/auth'
               className='px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-colors'
             >
-              Get started
+              Start For Free
             </Link>
           </div>
         </nav>
@@ -39,6 +39,13 @@ export default function Home() {
               you met someone, store their details, and organize by groups. Just
               paste a profile or contact info to auto-fill and add context.
             </p>
+            <Link
+              to='/auth'
+              className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
+            >
+              Get Started
+              <ArrowRightIcon className='w-5 h-5 ml-2' />
+            </Link>
           </div>
         </section>
 
@@ -165,7 +172,7 @@ export default function Home() {
               to='/auth'
               className='inline-flex items-center px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg transition-all transform hover:scale-105'
             >
-              Sign Up Now
+              Try It Out
               <ArrowRightIcon className='w-5 h-5 ml-2' />
             </Link>
           </div>
