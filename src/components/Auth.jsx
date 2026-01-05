@@ -21,9 +21,12 @@ export default function Auth() {
   };
 
   return (
-    <div className='min-h-screen flex flex-col gap-12 items-center justify-center bg-gray-50 px-4'>
-      <div className='text-center mt-4'>
-        <Link to='/' className='text-sm text-gray-500 hover:text-gray-700'>
+    <div className='min-h-screen relative flex flex-col gap-12 items-center justify-center bg-gray-50 px-4'>
+      <div className='text-center mt-4 absolute top-4 left-4'>
+        <Link
+          to='/'
+          className='text-sm border border-green-900 text-gray-500 hover:text-gray-700'
+        >
           Back to Home
         </Link>
       </div>

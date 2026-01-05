@@ -19,18 +19,29 @@ export default function Home() {
   return (
     <>
       <div className='w-full min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900'>
+        <nav className='w-full bg-transparent absolute top-0 left-0 z-10'>
+          <div className='max-w-6xl mx-auto px-4 py-4 flex justify-between items-center'>
+            <div className='text-white font-bold text-2xl'>KITH</div>
+            <Link
+              to='/auth'
+              className='px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-colors'
+            >
+              Get started
+            </Link>
+          </div>
+        </nav>
         <section className='flex flex-col items-center justify-center px-4 py-20 min-h-screen'>
           <div className='max-w-4xl mx-auto text-center'>
-            <h1 className='text-5xl md:text-7xl font-bold text-white mb-6'>
-              KITH
-            </h1>
-            <p className='text-xl md:text-2xl text-purple-200 mb-4'>
+            <h1 className='text-4xl md:text-6xl font-bold text-white mb-6'>
               Your Smart Contact Manager
+            </h1>
+            <p className='text-lg md:text-xl text-purple-200 mb-4'>
+              Keep track of professional and personal connections
             </p>
-            <p className='text-lg text-gray-300 mb-8 max-w-2xl mx-auto'>
-              Keep track of professional and personal connections. Remember how
-              you met someone, store their details, and organize by groups. Just
-              paste a profile or contact info to auto-fill and add context.
+            <p className='text-base text-gray-300 mb-8 max-w-2xl mx-auto'>
+              Remember how you met someone, store their details, and organize by
+              groups. Just paste a profile or contact info to auto-fill and add
+              context.
             </p>
             <div className='mb-8'>
               <label className='block text-gray-300 mb-2 text-center'>
