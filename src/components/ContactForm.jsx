@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -7,7 +8,7 @@ import { useContacts } from "../lib/ContactContext";
 
 const contactSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
+  email: yup.string().email("Invalid email"),
   phone: yup
     .string()
     .matches(/^[0-9]{8,15}$/, "Phone number must be between 8 and 15 digits")
@@ -31,17 +32,14 @@ export default function ContactForm({
     const text = pasteText.trim();
     if (!text) return;
 
-    // Extract email
     const emailMatch = text.match(
       /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/i
     );
     const email = emailMatch ? emailMatch[0] : "";
 
-    // Extract phone (simple pattern for digits)
     const phoneMatch = text.match(/\b\d{8,15}\b/);
     const phone = phoneMatch ? phoneMatch[0] : "";
 
-    // Extract name: assume first line or before email
     let name = "";
     const lines = text
       .split("\n")
@@ -51,10 +49,8 @@ export default function ContactForm({
       name = lines[0].replace(email, "").replace(phone, "").trim();
       if (!name && lines.length > 1) name = lines[1];
     }
-    // Clean name: remove parentheses like (( Pythonista ))
     name = name.replace(/\(\([^)]*\)\)/g, "").trim();
 
-    // If all fields parsed, add contact directly
     if (name && email && phone) {
       await addContact({
         full_name: name,
@@ -65,12 +61,10 @@ export default function ContactForm({
       setParseMessage("Contact added successfully!");
       setPasteText("");
     } else {
-      // Set formik values
       formik.setFieldValue("name", name);
       formik.setFieldValue("email", email);
       formik.setFieldValue("phone", phone);
 
-      // Provide feedback
       const fields = [];
       if (name) fields.push(`Name: ${name}`);
       if (email) fields.push(`Email: ${email}`);
@@ -120,7 +114,7 @@ export default function ContactForm({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className='bg-white rounded-xl shadow-lg w-full max-w-md relative overflow-hidden'
+        className='bg-white rounded-xl shadow-lg w-full max-w-md relative max-h-[90vh] overflow-y-auto'
       >
         <div className='p-6'>
           <button
@@ -135,7 +129,7 @@ export default function ContactForm({
           {!initialData && (
             <div className='mb-6 p-4 bg-gray-50 rounded-lg'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Quick Add: Paste LinkedIn Bio or Email Signature
+                Quick Add: Paste contacts information below
               </label>
               <textarea
                 value={pasteText}
@@ -144,7 +138,7 @@ export default function ContactForm({
                   setParseMessage("");
                 }}
                 className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mb-3'
-                rows={4}
+                rows={3}
                 placeholder='Paste contact information here...'
               />
               <motion.button
@@ -154,7 +148,6 @@ export default function ContactForm({
                 onClick={parseContactInfo}
                 className='bg-blue-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-blue-600'
               >
-                {/* <MdFlashOn size={16} /> */}
                 Auto-Fill for Me{" "}
               </motion.button>
               {parseMessage && (
