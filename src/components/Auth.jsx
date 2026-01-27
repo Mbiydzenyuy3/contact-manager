@@ -23,15 +23,14 @@ export default function Auth() {
 
   return (
     <div className='min-h-screen relative flex flex-col gap-12 items-center justify-center bg-gray-50 px-4'>
-      <div className='absolute top-6 left-6'>
-        <Link
-          to='/'
-          className='inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm'
-        >
-          <ArrowLeftIcon className='w-4 h-4 mr-2' />
-          Back to Home
-        </Link>
-      </div>
+      <Link
+        to='/'
+        className='inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm absolute top-6 -left-full'
+      >
+        <ArrowLeftIcon className='w-4 h-4 mr-2' />
+        Back to Home
+      </Link>
+
       <form
         onSubmit={handleSubmit}
         className='bg-white p-10 rounded-xl shadow-lg w-full max-w-sm md:max-w-md lg:max-w-lg'

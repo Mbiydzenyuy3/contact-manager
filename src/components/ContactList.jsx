@@ -49,12 +49,12 @@ export default function ContactList({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className='bg-white rounded-xl shadow-lg transition-all transform translate-y-0 hover:shadow-2xl hover:-translate-y-1'
+            className='bg-white rounded-xl shadow-sm border border-gray-100 transition-all transform translate-y-0 hover:shadow-md hover:border-purple-100 hover:-translate-y-1'
           >
             <div className='p-4 sm:p-6'>
               <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
                 <div className='flex items-center gap-4'>
-                  <div className='text-3xl bg-gray-100 p-3 rounded-lg'>
+                  <div className='text-3xl bg-gray-50 p-3 rounded-xl'>
                     {groupIcons[contact.group]}
                   </div>
                   <div>
@@ -66,7 +66,7 @@ export default function ContactList({
                       {contact.phone}
                     </p>
                     {contact.context && (
-                      <span className='inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-2'>
+                      <span className='inline-flex items-center bg-purple-50 text-purple-700 text-xs font-medium px-2.5 py-1 rounded-full mt-2 border border-purple-100'>
                         {contact.context}
                       </span>
                     )}
@@ -79,7 +79,10 @@ export default function ContactList({
                     onClick={() => onEdit(contact)}
                     className='action-button edit-button'
                   >
-                    <MdEdit size={20} className='text-blue-500' />
+                    <MdEdit
+                      size={20}
+                      className='text-gray-400 hover:text-blue-600 transition-colors'
+                    />
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
@@ -87,7 +90,10 @@ export default function ContactList({
                     onClick={() => onDelete(contact.id)}
                     className='action-button delete-button'
                   >
-                    <MdDelete size={20} className='text-red-500' />
+                    <MdDelete
+                      size={20}
+                      className='text-gray-400 hover:text-red-600 transition-colors'
+                    />
                   </motion.button>
                 </div>
               </div>
@@ -96,8 +102,11 @@ export default function ContactList({
         ))}
       </AnimatePresence>
       {filteredContacts.length === 0 && (
-        <div className='text-center text-gray-600 p-12 bg-white rounded-xl shadow-lg'>
-          <p className='text-lg'>No contacts found</p>
+        <div className='text-center text-gray-500 p-12 bg-white rounded-xl border border-dashed border-gray-300'>
+          <p className='text-lg font-medium'>No contacts found</p>
+          <p className='text-sm mt-1'>
+            Try adjusting your search or add a new connection.
+          </p>
         </div>
       )}
     </div>

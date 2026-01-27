@@ -114,7 +114,7 @@ export default function ContactForm({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className='bg-white rounded-xl shadow-lg w-full max-w-md relative max-h-[90vh] overflow-y-auto'
+        className='bg-white rounded-2xl shadow-2xl w-full max-w-lg relative max-h-[90vh] overflow-y-auto border border-gray-100'
       >
         <div className='p-6'>
           <button
@@ -127,9 +127,9 @@ export default function ContactForm({
             {initialData ? "Edit Contact" : "Add Contact"}
           </h2>
           {!initialData && (
-            <div className='mb-6 p-4 bg-gray-50 rounded-lg'>
-              <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Quick Add: Paste contacts information below
+            <div className='mb-8 p-5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100'>
+              <label className='block text-sm font-semibold text-gray-800 mb-2 flex items-center gap-2'>
+                ✨ Magic Paste
               </label>
               <textarea
                 value={pasteText}
@@ -137,16 +137,16 @@ export default function ContactForm({
                   setPasteText(e.target.value);
                   setParseMessage("");
                 }}
-                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mb-3'
+                className='w-full p-3 border border-blue-200 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 mb-3 bg-white text-sm'
                 rows={3}
-                placeholder='Paste contact information here...'
+                placeholder='Paste an email signature, LinkedIn bio, or raw text here...'
               />
               <motion.button
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 type='button'
                 onClick={parseContactInfo}
-                className='bg-blue-500 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-all hover:bg-blue-600'
+                className='bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all hover:bg-blue-700 shadow-sm'
               >
                 Auto-Fill for Me{" "}
               </motion.button>
@@ -157,7 +157,7 @@ export default function ContactForm({
               )}
             </div>
           )}
-          <form onSubmit={formik.handleSubmit} noValidate>
+          <form onSubmit={formik.handleSubmit} noValidate className='space-y-5'>
             <div className='mb-4'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
                 Name
@@ -170,7 +170,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mt-2.5'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
                 placeholder='Enter name'
               />
               {formik.errors.name && formik.touched.name && (
@@ -189,7 +189,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mt-2.5'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
                 placeholder='Enter email'
               />
               {formik.errors.email && formik.touched.email && (
@@ -210,7 +210,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mt-2.5'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
                 placeholder='67838690'
               />
               {formik.errors.phone && formik.touched.phone && (
@@ -230,7 +230,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mt-2.5'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
               >
                 <option value='professional'>Professional</option>
                 <option value='personal'>Personal</option>
@@ -246,7 +246,7 @@ export default function ContactForm({
             </div>
             <div className='mb-4'>
               <label className='block text-sm font-medium text-gray-700 mb-2'>
-                How we met (Context)
+                Context & Connection
               </label>
               <input
                 type='text'
@@ -256,8 +256,8 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-300 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 mt-2.5'
-                placeholder='e.g., Met at conference, LinkedIn connection'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
+                placeholder='e.g., Met at React Conf 2024, introduced by Sarah'
               />
             </div>
             {duplicateError && (
@@ -269,7 +269,7 @@ export default function ContactForm({
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               type='submit'
-              className='w-full bg-purple-500 text-white p-3 rounded-lg font-medium border-none cursor-pointer transition-all hover:bg-purple-700 mt-6'
+              className='w-full bg-purple-600 text-white p-3.5 rounded-xl font-semibold border-none cursor-pointer transition-all hover:bg-purple-700 shadow-md hover:shadow-lg mt-4'
             >
               {initialData ? "Update Contact" : "Add Contact"}
             </motion.button>
