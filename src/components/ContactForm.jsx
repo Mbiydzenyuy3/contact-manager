@@ -137,7 +137,7 @@ export default function ContactForm({
                   setPasteText(e.target.value);
                   setParseMessage("");
                 }}
-                className='w-full p-3 border border-blue-200 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 mb-3 bg-white text-sm'
+                className='w-full p-3 border border-blue-200 text-gray-700 rounded-lg transition-all focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 mb-3 bg-white text-sm'
                 rows={3}
                 placeholder='Paste an email signature, LinkedIn bio, or raw text here...'
               />
@@ -170,7 +170,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white text-gray-700'
                 placeholder='Enter name'
               />
               {formik.errors.name && formik.touched.name && (
@@ -189,7 +189,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white text-gray-700'
                 placeholder='Enter email'
               />
               {formik.errors.email && formik.touched.email && (
@@ -210,7 +210,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white text-gray-700'
                 placeholder='67838690'
               />
               {formik.errors.phone && formik.touched.phone && (
@@ -230,7 +230,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white text-gray-700'
               >
                 <option value='professional'>Professional</option>
                 <option value='personal'>Personal</option>
@@ -256,7 +256,7 @@ export default function ContactForm({
                   formik.handleChange(e);
                   clearDuplicateError?.();
                 }}
-                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white'
+                className='w-full p-3 border border-gray-200 rounded-lg transition-all focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 bg-gray-50 focus:bg-white text-gray-700'
                 placeholder='e.g., Met at React Conf 2024, introduced by Sarah'
               />
             </div>
