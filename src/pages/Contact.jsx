@@ -19,6 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContacts } from "../lib/ContactContext";
 import ContactForm from "../components/ContactForm";
 import Auth from "../components/Auth";
+import Logo from "../components/Logo";
 
 export default function Contact() {
   const {
@@ -170,12 +171,7 @@ export default function Contact() {
           <div className='flex justify-between items-center h-16'>
             {/* Logo */}
             <Link to='/' className='flex items-center gap-2 group'>
-              <div className='w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform'>
-                <span className='font-bold text-lg text-white'>K</span>
-              </div>
-              <span className='text-xl font-bold tracking-tight text-white'>
-                KITH
-              </span>
+              <Logo />
             </Link>
 
             {/* Actions */}

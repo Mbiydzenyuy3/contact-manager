@@ -8,8 +8,11 @@ import {
   BriefcaseIcon,
   HeartIcon,
   GlobeAltIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  SwitchHorizontalIcon,
+  ArrowRightIcon
 } from "@heroicons/react/outline";
+import Logo from "../components/Logo";
 
 const colorVariants = {
   blue: {
@@ -95,12 +98,13 @@ export default function Home() {
               className='inline-flex items-center gap-2'
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              <div className='w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center shadow-lg shadow-purple-500/20'>
+              {/* <div className='w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center shadow-lg shadow-purple-500/20'>
                 <span className='font-bold text-lg text-white'>K</span>
               </div>
               <span className='text-xl font-bold tracking-tight text-white'>
                 KITH
-              </span>
+              </span> */}
+              <Logo />
             </Link>
           </div>
           <div className='flex items-center gap-6'>
@@ -133,20 +137,31 @@ export default function Home() {
             <span className='inline-block py-1 px-3 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium mb-6 backdrop-blur-sm'>
               Reimagine your network
             </span>
-            <h1 className='text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight'>
+            <h1 className='text-3xl md:text-5xl font-semibold tracking-tight text-gray-300 mb-8 leading-tight'>
               Don't just store contacts. <br />
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400'>
+              <span className='text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400'>
                 Capture the Connection.
               </span>
             </h1>
             <p className='text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed'>
-              The address book is dead. KITH is the relationship manager that
-              remembers
-              <span className='text-white font-semibold'> who</span> they are,
-              <span className='text-white font-semibold'> where</span> you met,
-              and
-              <span className='text-white font-semibold'> why</span> they
-              matter.
+              The address book is dead.{" "}
+              <span className='text-white text-2xl font-extrabold'>KITH</span>{" "}
+              is the relationship manager that remembers
+              <span className='text-white text-2xl font-extrabold'>
+                {" "}
+                who
+              </span>{" "}
+              they are,
+              <span className='text-white text-2xl font-extrabold'>
+                {" "}
+                where
+              </span>{" "}
+              you met, and
+              <span className='text-white text-2xl font-extrabold'>
+                {" "}
+                why
+              </span>{" "}
+              they matter.
             </p>
 
             <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
@@ -171,7 +186,7 @@ export default function Home() {
       <section className='py-24 px-6 bg-slate-800/30 relative border-y border-white/5'>
         <div className='max-w-7xl mx-auto'>
           <div className='text-center mb-16'>
-            <h2 className='text-3xl md:text-4xl font-bold mb-4 text-white'>
+            <h2 className='text-3xl md:text-4xl text-center font-bold mb-4 text-white inline-block'>
               Every Connection Has a Story
             </h2>
             <p className='text-gray-400 max-w-2xl mx-auto text-lg'>
@@ -180,7 +195,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 m-6'>
             <PersonaCard
               icon={BriefcaseIcon}
               title='The Freelancer'
@@ -221,16 +236,18 @@ export default function Home() {
               <SparklesIcon className='w-5 h-5' />
               <span>Magic Paste Technology</span>
             </div>
-            <h2 className='text-4xl md:text-5xl font-bold mb-6 text-white'>
-              Messy Data? <br />
+            <h2 className='text-4xl md:text-5xl font-bold mb-6 text-white flex items-center gap-4'>
+              <span>Messy Data?</span>
+              <ArrowRightIcon className='w-10 h-10 mr-12 text-purple-400 shrink-0' />
               <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400'>
-                Clean Contacts.
+                Clean Contacts
               </span>
             </h2>
             <p className='text-gray-400 text-lg mb-8 leading-relaxed'>
               Stop typing manually. Copy an email signature, a LinkedIn bio, or
-              a messy text message. Paste it into KITH, and watch our AI parse
-              the name, email, phone, and context instantly.
+              a messy text message with contacts information. Paste it into
+              KITH, and watch our AI parse the name, email, phone, and context
+              instantly.
             </p>
 
             <ul className='space-y-4 mb-8'>
@@ -310,10 +327,7 @@ export default function Home() {
             className='inline-flex items-center gap-2'
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <div className='w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center shadow-lg shadow-purple-500/20'>
-              <span className='font-bold text-xs text-white'>K</span>
-            </div>
-            <span className='font-bold text-gray-300 tracking-tight'>KITH</span>
+            <Logo />
           </Link>
 
           <p className='text-gray-500 text-sm'>

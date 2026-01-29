@@ -8,10 +8,13 @@ import {
   ArrowRightIcon,
   SparklesIcon
 } from "@heroicons/react/outline";
+import Logo from "./Logo";
+import ErrorModal from "./ErrorModal";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +27,7 @@ export default function Auth() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
     try {
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,23 +44,23 @@ export default function Auth() {
       if (error) throw error;
       navigate("/link-sent", { state: { email } });
     } catch (error) {
+      let friendlyMessage;
       // Provide more user-friendly error messages
       if (
         error.message?.includes("fetch") ||
         error.message?.includes("network")
       ) {
-        alert(
-          "Unable to connect to the server. Please check your internet connection and try again."
-        );
+        friendlyMessage =
+          "Unable to connect to the server. Please check your internet connection and try again.";
       } else if (error.message?.includes("Invalid email")) {
-        alert("Please enter a valid email address");
+        friendlyMessage = "Please enter a valid email address";
       } else {
-        alert(
+        friendlyMessage =
           error.error_description ||
-            error.message ||
-            "An error occurred. Please try again."
-        );
+          error.message ||
+          "An error occurred. Please try again.";
       }
+      setErrorMessage(friendlyMessage);
     } finally {
       setLoading(false);
     }
@@ -64,18 +68,13 @@ export default function Auth() {
 
   return (
     <div className='min-h-screen w-full flex flex-col items-center justify-center px-4 relative overflow-hidden text-white font-sans selection:bg-purple-500 selection:text-white'>
+      <ErrorModal message={errorMessage} onClose={() => setErrorMessage("")} />
+
       {/* Background Effects */}
       <div className='absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] -z-10 pointer-events-none' />
 
       <nav className='absolute top-0 w-full p-6 flex justify-between items-center'>
-        <Link to='/' className='inline-flex items-center gap-2'>
-          <div className='w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center shadow-lg shadow-purple-500/20'>
-            <span className='font-bold text-lg text-white'>K</span>
-          </div>
-          <span className='text-xl font-bold tracking-tight text-white'>
-            KITH
-          </span>
-        </Link>
+        <Logo />
       </nav>
 
       <motion.div
@@ -90,7 +89,9 @@ export default function Auth() {
             <div className='inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 mb-4'>
               <SparklesIcon className='w-6 h-6' />
             </div>
-            <h1 className='text-2xl font-bold mb-2'>Welcome Back</h1>
+            <h1 className='text-2xl font-bold mb-2'>
+              Secure Your Connections <br /> With KITH
+            </h1>
             <p className='text-gray-400'>Sign in to manage your connections</p>
           </div>
 

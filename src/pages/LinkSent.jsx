@@ -30,7 +30,7 @@ export default function LinkSent() {
           <CheckCircleIcon className='w-8 h-8' />
         </div>
 
-        <h2 className='text-2xl font-bold text-white mb-4'>Link Sent!</h2>
+        <h2 className='text-2xl font-bold text-white mb-4'>Link Sent</h2>
         <p className='text-gray-300 mb-8 leading-relaxed'>
           A magic link has been sent to <br />
           <strong className='text-white'>{email}</strong>. Please check your
